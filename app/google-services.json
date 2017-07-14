@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "784770969877",
+    "project_id": "firebase-pituwa"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:784770969877:android:b1b1a6af82b3ff19",
+        "android_client_info": {
+          "package_name": "org.gnuzero.pub.pituwa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "784770969877-566gb09kq2tdgdrdfrfsn51amk507uo9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7MIM50c9KV7SxkSwXeIpzgPwkSlFwIh8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

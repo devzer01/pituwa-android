@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        devsign {
+            keyAlias 'pituwa0'
+            keyPassword 'V8UAEuP09X'
+            storeFile file('/Users/nhettiarachc/Documents/pp/keys/pituwa.jks')
+            storePassword 'V8UAEuP09X'
+        }
+    }
+    compileSdkVersion 23
+    buildToolsVersion '25.0.0'
+    defaultConfig {
+        applicationId "org.gnuzero.pub.pituwa"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 7
+        versionName '1.5'
+        signingConfig signingConfigs.devsign
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.devsign
+        }
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.mcxiaoke.volley:library:1.0.18'
+    compile 'com.github.chrisbanes.photoview:library:1.2.3'
+    compile 'com.facebook.android:facebook-android-sdk:4.0.1'
+    compile 'com.google.android.gms:play-services-ads:9.0.0'
+    compile 'com.pkmmte.view:circularimageview:1.1'
+    compile 'com.melnykov:floatingactionbutton:1.3.0'
+    compile 'com.squareup.okhttp:okhttp:2.5.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:appcompat-v7:23.2.0'
+    compile 'com.android.support:cardview-v7:23.2.0'
+    compile 'com.android.support:recyclerview-v7:23.2.0'
+    compile 'com.android.support:design:23.2.0'
+    compile 'com.balysv:material-ripple:1.0.2'
+    compile 'com.google.firebase:firebase-messaging:9.0.0'
+}
+
+apply plugin: 'com.google.gms.google-services'
