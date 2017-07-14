@@ -60,11 +60,11 @@
     <string name="action_profile_edit_cover">පිටකවරය වෙනස්කරමු </string>
     <string name="action_profile_edit">වෙනස්</string>
 
-    <string name="action_login_with_facebook">මුහුනුපොත ඔස්සේ සම්බන්ධය</string>
-    <string name="action_signup_with_facebook">මුහුනුපොත ඔස්සේ ලියාපදිංචීය</string>
-    <string name="action_connect_with_facebook">Connect with Facebook</string>
-    <string name="action_remove_connection">Remove connection</string>
-    <string name="action_regular_signup">Back to the regular registration form</string>
+    <string name="action_login_with_facebook">පිවිසීම</string>
+    <string name="action_signup_with_facebook">සම්බන්ධක</string>
+    <string name="action_connect_with_facebook">සම්බන්ධක</string>
+    <string name="action_remove_connection">විසන්දික</string>
+    <string name="action_regular_signup">ආපසු</string>
     <string name="action_forgot_password">රහස්පදය අමතකයි?</string>
 
     <string name="label_profile_report_0">Spam</string>
