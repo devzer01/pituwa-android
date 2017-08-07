@@ -18,6 +18,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 
 import org.gnuzero.pub.pituwa.adapter.NavDrawerAdapter;
+import org.gnuzero.pub.pituwa.app.App;
+
+import java.util.Arrays;
 
 public class FragmentDrawer extends Fragment {
 
@@ -73,7 +76,7 @@ public class FragmentDrawer extends Fragment {
         // Inflating view layout
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 
-//        mNavHeaderContainer = (RelativeLayout) layout.findViewById(R.id.nav_header_container);
+        mNavHeaderContainer = (RelativeLayout) layout.findViewById(R.id.nav_header_container);
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
 
         adapter = new NavDrawerAdapter(navTitles, navIcons, getActivity());

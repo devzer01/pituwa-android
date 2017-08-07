@@ -19,7 +19,7 @@ public class CategoryActivity extends ActivityBase {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        setTheme(R.style.MyMaterialTheme);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_category);

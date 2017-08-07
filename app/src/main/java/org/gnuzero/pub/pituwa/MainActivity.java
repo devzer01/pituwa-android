@@ -1,6 +1,7 @@
 package org.gnuzero.pub.pituwa;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,8 +10,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -19,6 +25,12 @@ import org.gnuzero.pub.pituwa.common.ActivityBase;
 import org.gnuzero.pub.pituwa.dialogs.ImageChooseDialog;
 import org.gnuzero.pub.pituwa.dialogs.PopularSettingsDialog;
 import org.gnuzero.pub.pituwa.dialogs.ProfileReportDialog;
+import org.gnuzero.pub.pituwa.util.CustomRequest;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends ActivityBase implements FragmentDrawer.FragmentDrawerListener, ImageChooseDialog.AlertPositiveListener, ProfileReportDialog.AlertPositiveListener, PopularSettingsDialog.AlertPositiveListener {
 
@@ -39,6 +51,7 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.MyMaterialTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -79,7 +92,7 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
 
         if (App.getInstance().getAdmob() == ADMOB_ENABLED) {
 
-            mContainerAdmob.setVisibility(View.VISIBLE);
+            mContainerAdmob.setVisibility(View.GONE);
 
             AdView mAdView = (AdView) findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().build();
@@ -125,7 +138,7 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
 
                 case "favorites": {
 
-                    displayView(5);
+                    displayView(4);
 
                     break;
                 }
@@ -139,7 +152,7 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
 
                 case "profile": {
 
-                    displayView(7);
+                    displayView(5);
 
                     break;
                 }
@@ -192,6 +205,8 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
     @Override
     public void onDrawerItemSelected(View view, int position) {
 
+        //RelativeLayout v = (RelativeLayout) view;
+        //v.setBackgroundResource(R.drawable.ic_background);
         displayView(position);
     }
 
@@ -231,21 +246,21 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
             }
 
 
-            case 3: {
+            case 35: {
 
-                page = 3;
+                page = 35;
 
                 fragment = new SearchFragment();
-                getSupportActionBar().setTitle("");
+                getSupportActionBar().setTitle("පිටු සෙවීම");
 
                 action = true;
 
                 break;
             }
 
-            case 4: {
+            case 3: {
 
-                page = 4;
+                page = 3;
 
                 fragment = new PopularFragment();
                 getSupportActionBar().setTitle(R.string.page_4);
@@ -255,11 +270,11 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
                 break;
             }
 
-            case 5: {
+            case 4: {
 
                 if (App.getInstance().getId() != 0){
 
-                    page = 5;
+                    page = 4;
 
                     fragment = new FavoritesFragment();
                     getSupportActionBar().setTitle(R.string.page_5);
@@ -276,14 +291,14 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
                 break;
             }
 
-            case 6: {
+            case 51: {
 
                 if (App.getInstance().getId() != 0){
 
-                    page = 6;
+                    page = 51;
 
                     fragment = new NotificationsFragment();
-                    getSupportActionBar().setTitle(R.string.page_6);
+                    //getSupportActionBar().setTitle(R.string.page_6);
 
                     action = true;
 
@@ -297,16 +312,19 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
                 break;
             }
 
-            case 7: {
+            case 5: {
 
                 if (App.getInstance().getId() != 0){
 
-                    page = 7;
+                    page = 5;
 
                     fragment = new ProfileFragment();
                     getSupportActionBar().setTitle(R.string.page_7);
 
                     action = true;
+                    /*Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                    i.putExtra("pageId", "profile");
+                    startActivityForResult(i, ACTION_LOGIN);*/
 
                 } else {
 
@@ -317,6 +335,70 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
 
                 break;
             }
+
+            case 6: {
+                if (App.getInstance().getId() != 0){
+
+                    if (App.getInstance().isConnected() && App.getInstance().getId() != 0) {
+
+                        showpDialog();
+
+                        CustomRequest jsonReq = new CustomRequest(Request.Method.POST, METHOD_ACCOUNT_LOGOUT, null,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+
+                                        try {
+
+                                            if (!response.getBoolean("error")) {
+
+                                                App.getInstance().removeData();
+                                                App.getInstance().readData();
+
+                                                App.getInstance().setNotificationsCount(0);
+                                                App.getInstance().setId(0);
+                                                App.getInstance().setUsername("");
+                                                App.getInstance().setFullname("");
+
+                                                Intent i = new Intent(MainActivity.this, MainActivity.class);
+                                                startActivity(i);
+                                            }
+
+                                        } catch (JSONException e) {
+
+                                            e.printStackTrace();
+
+                                        } finally {
+
+                                            hidepDialog();
+                                        }
+                                    }
+                                }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                hidepDialog();
+                            }
+                        }) {
+
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("clientId", CLIENT_ID);
+                                params.put("accountId", Long.toString(App.getInstance().getId()));
+                                params.put("accessToken", App.getInstance().getAccessToken());
+
+                                return params;
+                            }
+                        };
+
+                        App.getInstance().addToRequestQueue(jsonReq);
+                    }
+
+                } else {
+
+                }
+            }
+            break;
 
             default: {
 
@@ -337,7 +419,8 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
         }
 
         if (action) {
-
+            //FrameLayout frm = (FrameLayout) findViewById(R.id.container_body);
+            //frm.setBackgroundResource(R.drawable.ic_background);
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.container_body, fragment)

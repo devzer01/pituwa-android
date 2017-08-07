@@ -800,7 +800,7 @@ public class ProfileFragment extends Fragment implements Constants, SwipeRefresh
 
             profileActionBtn.setText(R.string.action_profile_edit);
 
-            profileActionBtn.setVisibility(View.VISIBLE);
+            profileActionBtn.setVisibility(View.GONE);
 
         } else {
 
@@ -1094,7 +1094,7 @@ public class ProfileFragment extends Fragment implements Constants, SwipeRefresh
 
                 // your profile
 
-                menu.removeItem(R.id.action_profile_report);
+                //menu.removeItem(R.id.action_profile_report);
             }
 
             //show all menu items
@@ -1112,21 +1112,21 @@ public class ProfileFragment extends Fragment implements Constants, SwipeRefresh
 
         switch (item.getItemId()) {
 
-            case R.id.action_profile_refresh: {
-
-                profileListView.smoothScrollToPosition(0);
-                mProfileContentScreen.setRefreshing(true);
-                onRefresh();
-
-                return true;
-            }
-
-            case R.id.action_profile_report: {
-
-                profileReport();
-
-                return true;
-            }
+//            case R.id.action_profile_refresh: {
+//
+//                profileListView.smoothScrollToPosition(0);
+//                mProfileContentScreen.setRefreshing(true);
+//                onRefresh();
+//
+//                return true;
+//            }
+//
+//            case R.id.action_profile_report: {
+//
+//                profileReport();
+//
+//                return true;
+//            }
 
             case R.id.action_profile_edit_photo: {
 

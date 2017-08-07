@@ -15,7 +15,7 @@ public class ActivityBase extends AppCompatActivity implements Constants {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        setTheme(R.style.MyMaterialTheme);
         super.onCreate(savedInstanceState);
 
         initpDialog();

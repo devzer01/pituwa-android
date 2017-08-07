@@ -7,38 +7,91 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="ru.ifsoft.pituwa.LoginFragment" >
+    tools:context="org.gnuzero.pub.pituwa.LoginFragment" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="භාවිතාවේනික අංගයක්. සත්‍යාපනය වන්න"
+        android:gravity="center"
+        android:alpha="0.90"
+        android:background="#fff"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="1dip"
+        android:background="#356cb5" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/scrollView"
+        android:alpha="0.90"
         android:background="#fff">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp" >
+            android:padding="16dp"
+            android:weightSum="1">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="ජාලගත (ලියාපදින්චි)"
+                android:id="@+id/signupButton"
+                android:layout_marginTop="5dp"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:textSize="18dp"
+                android:padding="15dp"
+                android:textStyle="bold"
+                android:background="@drawable/app_layout_background"
+                android:layout_gravity="center_horizontal" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_marginTop="15dp"
+                android:layout_height="2dip"
+                android:background="#356cb5" />
+
+
+
 
             <com.facebook.login.widget.LoginButton
                 xmlns:fb="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                fb:login_text="@string/action_login_with_facebook"
-                fb:logout_text="@string/action_login_with_facebook"
-                android:padding="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:layout_marginBottom="20dp" />
+                fb:login_text="මුහුනු පොත් සත්යාපනය"
+                fb:logout_text="ඉවත්වීම"
+                fb:paddingStart="@dimen/com_facebook_likeboxcountview_border_radius"
+                android:background="#356cb5"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:padding="15dp"
+                android:textSize="18dp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_marginTop="15dp"
+                android:layout_height="2dip"
+                android:background="#356cb5" />
+
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:hint="@string/placeholder_login"
+                android:hint="භාවිත නාමය (username)"
                 android:ems="10"
                 android:layout_marginTop="10dp"
                 android:maxLength="24"
@@ -48,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="@string/placeholder_password"
+                android:hint="රහස්පදය (password)"
                 android:ems="10"
                 android:id="@+id/signinPassword"
                 android:layout_marginTop="10dp"
@@ -58,42 +111,59 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/action_login"
+                android:text="පිවීසීම (Login)"
                 android:id="@+id/signinBtn"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/white"
-                android:background="@drawable/button_primary"
+                android:textSize="18dp"
+                android:padding="15dp"
+                android:background="@drawable/app_layout_background"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/action_forgot_password"
-                android:id="@+id/forgotPassword"
-                android:layout_marginTop="15dp"
-                android:textColor="@color/light_blue"
-                android:gravity="center"
-                android:textSize="14dp"
-                android:padding="5dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:orientation="horizontal">
 
+                <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="පිවිසීමේ ගැටලුවක්ද!! රහස්පද අමතකවීමක්"
+                android:id="@+id/forgotPassword2"
+                android:layout_marginTop="5dp"
+                android:textColor="#000000"
+                android:textSize="11dp"
+                android:padding="5dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/action_signup"
-                android:id="@+id/signupButton"
-                android:layout_marginTop="20dp"
+                android:text="විමසන්න"
+                android:id="@+id/forgotPassword"
+                android:layout_marginTop="5dp"
                 android:textColor="@color/light_blue"
-                android:gravity="center"
-                android:textSize="18dp"
-                android:layout_gravity="center_horizontal"
-                android:paddingTop="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="20dp" />
-
-
+                android:textSize="11dp"
+                android:padding="5dp" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="1dip"
+        android:background="#356cb5" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+    android:text="භාවිතාවේනිකයනු භාවිතානරන්නාට ආවේනික ආකාරයෙන්, භාවිනකරන පුද්ගලයාගේ කැමැති අකමැතිකම් ආස්‍රයෙන් (unique to the user, as such includes content based on personal preference)"
+    android:gravity="center"
+    android:background="#fff"
+    android:textSize="12dp"
+        android:alpha="0.90"
+    android:textStyle="bold" />
 
 </LinearLayout>

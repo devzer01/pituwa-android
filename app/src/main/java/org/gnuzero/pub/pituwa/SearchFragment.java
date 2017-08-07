@@ -25,6 +25,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,8 @@ public class SearchFragment extends Fragment implements Constants, SwipeRefreshL
     private static final String STATE_LIST = "State Adapter Data";
 
     SearchView searchView = null;
+
+    TextView ticker;
 
     RecyclerView mRecyclerView;
     TextView mMessage, mHeaderText;
@@ -179,7 +182,7 @@ public class SearchFragment extends Fragment implements Constants, SwipeRefreshL
 
         if (itemsAdapter.getItemCount() == 0) {
 
-            showMessage(getText(R.string.label_empty_list).toString());
+            //showMessage(getText(R.string.label_empty_list).toString());
 
         } else {
 
@@ -190,7 +193,7 @@ public class SearchFragment extends Fragment implements Constants, SwipeRefreshL
 
             if (mRecyclerView.getAdapter().getItemCount() == 0) {
 
-                showMessage(getString(R.string.label_search_start_screen_msg));
+                //showMessage(getString(R.string.label_search_start_screen_msg));
                 mHeaderContainer.setVisibility(View.GONE);
 
             } else {

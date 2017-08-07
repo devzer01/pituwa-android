@@ -17,6 +17,7 @@ public class SignupActivity extends ActivityBase {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.MyMaterialTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
@@ -41,7 +42,7 @@ public class SignupActivity extends ActivityBase {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-
+        setTheme(R.style.MyMaterialTheme);
         super.onSaveInstanceState(outState);
 
         getSupportFragmentManager().putFragment(outState, "currentFragment", fragment);
@@ -49,7 +50,7 @@ public class SignupActivity extends ActivityBase {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        setTheme(R.style.MyMaterialTheme);
         super.onActivityResult(requestCode, resultCode, data);
 
         fragment.onActivityResult(requestCode, resultCode, data);

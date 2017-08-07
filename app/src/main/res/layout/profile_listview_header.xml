@@ -157,6 +157,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/dark_blue"
+                            android:visibility="gone"
                             android:background="@drawable/button_white"
                             android:text="@string/action_settings"
                             android:id="@+id/profileActionBtn"

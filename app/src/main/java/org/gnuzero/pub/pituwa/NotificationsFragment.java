@@ -93,7 +93,7 @@ public class NotificationsFragment extends Fragment implements Constants, SwipeR
 
         if (notificationsAdapter.getCount() == 0) {
 
-            showMessage(getText(R.string.label_empty_list).toString());
+            showMessage("ලුහුඩු පුවතක් වාරතාවී නැත");
 
         } else {
 

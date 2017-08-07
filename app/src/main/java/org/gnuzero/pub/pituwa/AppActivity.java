@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -30,13 +31,14 @@ public class AppActivity extends ActivityBase {
 
     RelativeLayout loadingScreen;
     LinearLayout contentScreen;
+    TextView ticker;
 
     Boolean restore = false;
     Boolean loading = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        setTheme(R.style.MyMaterialTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app);
 
@@ -55,6 +57,8 @@ public class AppActivity extends ActivityBase {
 
         contentScreen = (LinearLayout) findViewById(R.id.contentScreen);
         loadingScreen = (RelativeLayout) findViewById(R.id.loadingScreen);
+
+
 
         loginBtn = (Button) findViewById(R.id.loginBtn);
         signupBtn = (Button) findViewById(R.id.signupBtn);

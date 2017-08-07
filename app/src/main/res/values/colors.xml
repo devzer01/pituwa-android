@@ -34,8 +34,7 @@
 
     <color name="colorPrimaryButton">#6287AE</color>
     <color name="colorPrimaryButtonPressed">#5c7fa4</color>
-
-    <color name="colorPrimary">#356cb5</color>
+    <color name="colorPrimary">#f39b1f</color>
     <color name="colorPrimaryDark">#435E7E</color>
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="statusBarColor">#4169E1</color>
@@ -49,4 +48,11 @@
     <color name="listViewDivider2">#E1E8ED</color>
     <color name="postSeparatorLine">#e8f0f5</color>
     <color name="colorCounterBackground">#34B5E5</color>
+
+
+    //branding
+    <color name="pituwa.t1.pressed">#1479ba</color>
+    <color name="pituwa.t1.selected">#b0d7ef</color>
+    <color name="pituwa.t1.background">#b9c8de</color>
+
 </resources>

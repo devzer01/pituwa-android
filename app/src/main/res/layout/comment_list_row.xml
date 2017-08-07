@@ -56,7 +56,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New Text"
+                            android:text="කතුවර"
                             android:id="@+id/commentAuthor"
                             android:fontFamily="sans-serif-light"
                             android:textStyle="bold"
@@ -69,7 +69,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="false"
-                            android:text="Comment text"
+                            android:text="ප්‍රතිචාර"
                             android:textSize="16dp"
                             emojicon:emojiconSize="24dp"
                             android:textColor="@color/black"

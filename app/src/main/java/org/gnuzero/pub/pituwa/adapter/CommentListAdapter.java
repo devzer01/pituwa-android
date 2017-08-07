@@ -199,7 +199,9 @@ public class CommentListAdapter extends BaseAdapter implements Constants {
             }
         });
 
-        viewHolder.commentText.setText(comment.getText().replaceAll("<br>", "\n"));
+        String commentText = (String) comment.getText();
+        if (commentText != null) commentText = commentText.replaceAll("<br>", "\n");
+        viewHolder.commentText.setText(commentText);
 
         viewHolder.commentText.setMovementMethod(LinkMovementMethod.getInstance());
 

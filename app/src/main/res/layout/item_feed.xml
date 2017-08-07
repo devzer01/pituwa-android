@@ -46,7 +46,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="fgdhfdghdfghfdg"
+                        android:text="මාත්‍රකාව"
                         android:maxLines="2"
                         android:ellipsize="end"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"

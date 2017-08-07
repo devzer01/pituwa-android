@@ -37,7 +37,7 @@
                 android:textSize="@dimen/item_title"
                 android:singleLine="true"
                 android:ellipsize="end"
-                android:text="Item Title" />
+                android:text="මාතෘකාව" />
 
         </RelativeLayout>
 

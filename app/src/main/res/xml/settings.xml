@@ -2,6 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     <PreferenceCategory
         android:key="header_general"
+        android:shouldDisableView="true"
         android:title="@string/settings_header_general">
 
         <Preference

@@ -180,7 +180,7 @@ public class NavDrawerAdapter extends RecyclerView.Adapter<NavDrawerAdapter.View
             } else {
 
 
-                holder.userCover.setImageResource(R.drawable.header_logo);
+                holder.userCover.setImageResource(R.drawable.profile_default_cover);
                 holder.userCover.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 holder.userCover.setVisibility(View.VISIBLE);
 

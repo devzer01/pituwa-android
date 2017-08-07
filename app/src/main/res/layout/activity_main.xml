@@ -40,6 +40,32 @@
             android:layout_height="50dp"
             android:background="#00ffffff"
             android:gravity="center"
+            android:id="@+id/newsticker"
+            android:visibility="gone">
+            <TextView
+                android:id="@+id/tickermarq"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18sp"
+                android:padding="13dp"
+                android:textStyle="italic"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:paddingLeft="15dip"
+                android:paddingRight="15dip"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:freezesText="true"
+                android:text="තුම්මුල්ල හන්දියේ තදබදයක්, දෙහිවල සත්තුවත්තේ අලි කුලප්පුවක් "
+                android:maxLines="1" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#00ffffff"
+            android:gravity="center"
             android:id="@+id/container_admob"
             android:visibility="gone">
 

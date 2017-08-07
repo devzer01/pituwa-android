@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/contentScreen"
-        android:background="#fff">
+
+        android:id="@+id/contentScreen">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -19,19 +19,21 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+
             android:layout_weight="1">
 
-            <ImageView
+            <!--<ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/appLogoView"
                 android:focusableInTouchMode="false"
                 android:src="@drawable/app_logo"
+                android:visibility="gone"
                 android:layout_alignParentBottom="false"
                 android:layout_centerInParent="true"
                 android:layout_alignParentTop="false"
                 android:layout_alignParentLeft="false"
-                android:layout_alignWithParentIfMissing="false" />
+                android:layout_alignWithParentIfMissing="false" />-->
         </RelativeLayout>
 
         <LinearLayout
@@ -79,15 +81,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/loadingScreen"
-        android:background="#fff">
+        android:id="@+id/loadingScreen">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/appLogoView2"
             android:focusableInTouchMode="false"
-            android:src="@drawable/app_logo"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />

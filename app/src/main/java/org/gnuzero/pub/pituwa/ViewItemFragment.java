@@ -54,7 +54,14 @@ import org.gnuzero.pub.pituwa.util.Api;
 import org.gnuzero.pub.pituwa.util.CommentInterface;
 import org.gnuzero.pub.pituwa.util.CustomRequest;
 
-public class ViewItemFragment extends Fragment implements Constants, SwipeRefreshLayout.OnRefreshListener, CommentInterface {
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerFragment;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
+import com.google.android.youtube.player.YouTubePlayerView;
+
+
+public class ViewItemFragment extends Fragment implements Constants, SwipeRefreshLayout.OnRefreshListener, CommentInterface, YouTubePlayer.OnInitializedListener, YouTubePlayer.OnFullscreenListener {
 
     private ProgressDialog pDialog;
 
@@ -68,6 +75,9 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
     Button mRetryBtn;
 
     View mListViewHeader;
+
+    YouTubePlayerView youTubePlayerView;
+    YouTubePlayer youTubePlayer;
 
     ImageView mItemLike, mItemShare, mItemComment, mEmojiBtn, mSendComment;
     TextView mItemCategory, mItemDate, mItemTitle, mItemLikesCount, mItemCommentsCount, mPostMessage;
@@ -270,6 +280,10 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
         mItemCommentsCount = (TextView) mListViewHeader.findViewById(R.id.itemCommentsCount);
         mItemImg = (ImageView) mListViewHeader.findViewById(R.id.itemImg);
 
+        YouTubePlayerView playerView = (YouTubePlayerView) mListViewHeader.findViewById(R.id.player);
+        playerView.initialize("AIzaSyD1OSP942b9_XJrnxNfSWMVgznrc6PA9_w", this);
+
+
         if (!EMOJI_KEYBOARD) {
 
             mEmojiBtn.setVisibility(View.GONE);
@@ -352,6 +366,14 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
         return rootView;
     }
 
+    @Override
+    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player,
+                                        boolean wasRestored) {
+        if (!wasRestored) {
+            player.cueVideo("nCgQDjiotG0");
+        }
+    }
+
     public void hideEmojiKeyboard() {
 
         popup.dismiss();
@@ -415,6 +437,12 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
 
             updateItem();
         }
+    }
+
+    @Override
+    public void onInitializationFailure(YouTubePlayer.Provider provider,
+                                        YouTubeInitializationResult errorReason) {
+
     }
 
     @Override
@@ -569,10 +597,9 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
             mItemTitle.setVisibility(View.GONE);
         }
 
-        if (item.getContent().length() != 0) {
+        if (item.getContent().length() != 0 && item.getCategoryId() != 99) {
 
             mWebView.setVisibility(View.VISIBLE);
-
             mWebView.getSettings().setJavaScriptEnabled(true);
             mWebView.getSettings().setLoadWithOverviewMode(true);
             mWebView.getSettings().setUseWideViewPort(true);
@@ -593,6 +620,7 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
         } else {
 
             mWebView.setVisibility(View.GONE);
+
         }
 
         if (item.getImgUrl().length() > 0) {
@@ -994,5 +1022,10 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    public void onFullscreen(boolean b) {
+
     }
 }

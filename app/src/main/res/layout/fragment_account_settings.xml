@@ -7,7 +7,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="ru.ifsoft.pituwa.AccountSettingsFragment"
+    tools:context="org.gnuzero.pub.pituwa.AccountSettingsFragment"
     android:background="#fff">
 
     <ScrollView
@@ -23,9 +23,21 @@
             android:layout_gravity="center_horizontal"
             android:padding="20dp">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="35dp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="#f39b1f"
+                android:padding="5dp"
+                android:textColor="#ffffff"
+                android:text="වැඩි විස්තර" />
+
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:id="@+id/sexSpinner" />
 
             <EditText
@@ -54,6 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
+                android:visibility="gone"
                 android:hint="@string/placeholder_facebook_page"
                 android:ems="10"
                 android:id="@+id/facebookPage"
@@ -65,6 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/placeholder_instagram_page"
+                android:visibility="gone"
                 android:id="@+id/instagramPage"
                 android:maxLength="255"
                 android:layout_gravity="center_horizontal"
@@ -74,6 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/placeholder_bio"
+                android:visibility="gone"
                 android:inputType="textMultiLine"
                 android:ems="10"
                 android:maxLength="255"
@@ -83,11 +98,18 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Date of Birth"
+                android:text="උපන් දිනය"
                 android:id="@+id/selectBirth"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/button_white"
-                android:textColor="@color/dark_blue" />
+                android:padding="5dp"
+                android:textSize="20dp"
+                android:background="#356cb5"
+                android:textColor="#ffffff" />
+
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </ScrollView>

@@ -10,7 +10,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/pituwa_t1_menu_item_background">
 
         <ImageView
             android:layout_width="32dp"

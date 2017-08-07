@@ -10,7 +10,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     android:id="@+id/main_layout"
-    tools:context="ru.ifsoft.pituwa.ProfileFragment" >
+    tools:context="org.gnuzero.pub.pituwa.ProfileFragment" >
 
     <LinearLayout
         android:orientation="vertical"
@@ -58,7 +58,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_account_disabled"
+                android:text="විසංදිකරඇත"
                 android:id="@+id/profileDisabledScreenMsg"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"

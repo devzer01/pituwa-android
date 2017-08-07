@@ -48,7 +48,7 @@ public class Helper extends Application {
 
         } else {
 
-            return false;
+            return true;
         }
     }
 

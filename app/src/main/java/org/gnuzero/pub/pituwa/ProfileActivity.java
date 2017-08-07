@@ -21,6 +21,7 @@ public class ProfileActivity extends ActivityBase implements ImageChooseDialog.A
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.MyMaterialTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 

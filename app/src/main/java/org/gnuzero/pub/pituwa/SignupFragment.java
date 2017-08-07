@@ -50,7 +50,7 @@ public class SignupFragment extends Fragment implements Constants {
 
     private ProgressDialog pDialog;
 
-    LinearLayout mActionContainer;
+    LinearLayout mActionContainer, actionContainerLogin;
 
     EditText signupUsername, signupFullname, signupPassword, signupEmail;
     Button signupJoinHowBtn;
@@ -61,6 +61,8 @@ public class SignupFragment extends Fragment implements Constants {
 
     private Boolean restore = false;
     private Boolean loading = false;
+
+
 
     public SignupFragment() {
         // Required empty public constructor
@@ -103,7 +105,8 @@ public class SignupFragment extends Fragment implements Constants {
             loginButton.setVisibility(View.GONE);
         }
 
-        mActionContainer = (LinearLayout) rootView.findViewById(R.id.actionContainer);
+        //mActionContainer = (LinearLayout) rootView.findViewById(R.id.actionContainer);
+        //actionContainerLogin = (LinearLayout) rootView.findViewById(R.id.actionContainerLogin);
 
         signupUsername = (EditText) rootView.findViewById(R.id.signupUsername);
         signupFullname = (EditText) rootView.findViewById(R.id.signupFullname);
@@ -124,9 +127,9 @@ public class SignupFragment extends Fragment implements Constants {
             }
         });
 
-        mLabelAuthorizationViaFacebook = (TextView) rootView.findViewById(R.id.labelAuthorizationViaFacebook);
+        //mLabelAuthorizationViaFacebook = (TextView) rootView.findViewById(R.id.labelAuthorizationViaFacebook);
 
-        mRegularSignup = (TextView) rootView.findViewById(R.id.regularSignup);
+/*        mRegularSignup = (TextView) rootView.findViewById(R.id.regularSignup);
 
         mRegularSignup.setOnClickListener(new View.OnClickListener() {
 
@@ -141,9 +144,9 @@ public class SignupFragment extends Fragment implements Constants {
 
                 mActionContainer.setVisibility(View.GONE);
             }
-        });
+        });*/
 
-        mSigninButton = (TextView) rootView.findViewById(R.id.signinButton);
+/*        mSigninButton = (TextView) rootView.findViewById(R.id.signinButton);
 
         mSigninButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,17 +157,17 @@ public class SignupFragment extends Fragment implements Constants {
 
                 getActivity().finish();
             }
-        });
+        });*/
 
         if (facebookId != null && !facebookId.equals("")) {
 
             loginButton.setVisibility(View.GONE);
 
-            mActionContainer.setVisibility(View.VISIBLE);
+            //mActionContainer.setVisibility(View.VISIBLE);
 
         } else {
 
-            mActionContainer.setVisibility(View.GONE);
+            //mActionContainer.setVisibility(View.GONE);
         }
 
         if (facebookId == null) {
@@ -358,6 +361,8 @@ public class SignupFragment extends Fragment implements Constants {
                                 params.put("language", language);
                                 params.put("facebookId", facebookId);
                                 params.put("clientId", CLIENT_ID);
+                                params.put("profilePicture", facebookPicture);
+                                params.put("coverPicture", facebookCover);
                                 params.put("gcm_regId", App.getInstance().getGcmToken());
 
                                 return params;
@@ -396,6 +401,8 @@ public class SignupFragment extends Fragment implements Constants {
                                             // Application code
 
                                             try {
+
+                                                //actionContainerLogin.setVisibility(View.VISIBLE);
 
                                                 facebookId = object.getString("id");
                                                 facebookName = object.getString("name");
@@ -548,7 +555,7 @@ public class SignupFragment extends Fragment implements Constants {
 
                                 loginButton.setVisibility(View.GONE);
 
-                                mActionContainer.setVisibility(View.VISIBLE);
+                                //mActionContainer.setVisibility(View.VISIBLE);
 
                                 if (facebookEmail != null && !facebookEmail.equals("")) {
 

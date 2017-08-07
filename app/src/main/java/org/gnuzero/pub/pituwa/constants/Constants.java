@@ -6,13 +6,13 @@ public interface Constants {
 
     public static final Boolean FACEBOOK_AUTHORIZATION = true; // false = Do not show buttons Login/Signup with Facebook | true = allow display buttons Login/Signup with Facebook
 
-    public static final String APP_TEMP_FOLDER = "news"; //directory for temporary storage of images from the camera
+    public static final String APP_TEMP_FOLDER = "pituwa"; //directory for temporary storage of images from the camera
 
     public static final String WEB_SITE = "http://www.pituwa.co/";  //web site url address
 
     public static final String CLIENT_ID = "39549";  //Client ID | For identify the application | Example: 12567
 
-    public static final String API_DOMAIN = "http://backend.pituwa.co/";  //url address to which the application sends requests
+    public static final String API_DOMAIN = "http://stage.backend.pituwa.co/";  //url address to which the application sends requests
 
     public static final String API_FILE_EXTENSION = ".inc.php";
     public static final String API_VERSION = "v1";
