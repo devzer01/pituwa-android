@@ -89,12 +89,6 @@
             android:layout_marginBottom="10dp"
             android:textStyle="bold" />
 
-
-        <com.google.android.youtube.player.YouTubePlayerView
-            android:id="@+id/player"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
         <WebView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -41,7 +41,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="1. පහතින් facebook ජාලයට login වන්න"
+                android:text="පහතින් facebook ජාලයට සමග හෝ"
                 android:gravity="left"
                 android:padding="5dp"
                 android:textSize="13dp"
@@ -71,7 +71,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="2. පහතින් username සහ password සෙටි කරගන්න"
+                android:text="පහතින් සෘජුව username සහ password සෙටි කරගන්න"
                 android:gravity="left"
                 android:padding="5dp"
 
@@ -127,7 +127,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="3. register බොත්තම ඔබා මදක් රැදීසිටින්න"
+                android:text="3. register බොත්තම ඔබන්න"
                 android:gravity="left"
                 android:padding="5dp"
                 android:textSize="13dp"
@@ -176,16 +176,6 @@
                 android:layout_marginBottom="15dp"
                 android:layout_height="2dip"
                 android:background="#356cb5" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="fill_parent"
-                android:text="username එක සිංහල unicode වලින් දාන්න පුලාවන්, password එකත් පුලුවන්, හැබැයි එක අපි ට්‍රයිකරලා නෑ. අපි හදමු අපිට ආතල් අපේම තැනක්. චැටිරුම් එකයි, හිටවන කවි වෙිදිකාවද ලගදීම. නිර්නාමකව බාවිතා කිරිමද කල හැක. එහෙනම් ආයුසබෝවෙයන්!!"
-                android:gravity="bottom"
-                android:padding="5dp"
-                android:textSize="11dp"
-                android:textStyle="italic" />
-
 
         </LinearLayout>
 

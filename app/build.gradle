@@ -5,7 +5,7 @@ android {
         devsign {
             keyAlias 'pituwa0'
             keyPassword 'V8UAEuP09X'
-            storeFile file('/Users/nhettiarachc/Documents/pp/keys/pituwa.jks')
+            storeFile file('/Users/nayanahettiarachchi/Documents/pp/keys/pituwa.jks')
             storePassword 'V8UAEuP09X'
         }
     }
@@ -48,7 +48,6 @@ dependencies {
     compile 'com.android.support:design:23.2.0'
     compile 'com.balysv:material-ripple:1.0.2'
     compile 'com.google.firebase:firebase-messaging:9.0.0'
-    compile files('libs/YouTubeAndroidPlayerApi.jar')
 }
 
 apply plugin: 'com.google.gms.google-services'

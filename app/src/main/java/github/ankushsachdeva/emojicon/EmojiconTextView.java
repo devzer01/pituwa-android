@@ -64,7 +64,7 @@ public class EmojiconTextView extends TextView {
     public void setText(CharSequence text, BufferType type) {
         if (text == null) return;
         SpannableStringBuilder builder = new SpannableStringBuilder(text);
-        EmojiconHandler.addEmojis(getContext(), builder, mEmojiconSize, mTextStart, mTextLength);
+        //EmojiconHandler.addEmojis(getContext(), builder, mEmojiconSize, mTextStart, mTextLength);
         super.setText(builder, type);
     }
 
