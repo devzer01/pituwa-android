@@ -9,4 +9,19 @@
         android:id="@+id/drawerList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/tickerTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="18dp"
+            android:text="පුවත් පත් සිරස්තල මෙහි විටින්විට දිස්වනු ඇත."/>
+    </RelativeLayout>
+
+
 </LinearLayout>

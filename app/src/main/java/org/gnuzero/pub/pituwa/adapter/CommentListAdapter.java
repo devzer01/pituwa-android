@@ -16,7 +16,6 @@ import com.pkmmte.view.CircularImageView;
 
 import java.util.List;
 
-import github.ankushsachdeva.emojicon.EmojiconTextView;
 import org.gnuzero.pub.pituwa.ProfileActivity;
 import org.gnuzero.pub.pituwa.R;
 import org.gnuzero.pub.pituwa.app.App;
@@ -85,7 +84,7 @@ public class CommentListAdapter extends BaseAdapter implements Constants {
 
         public CircularImageView commentAuthorPhoto;
         public TextView commentAuthor;
-        public EmojiconTextView commentText;
+        public TextView commentText;
         public TextView commentTimeAgo;
         public TextView commentLikesCount;
         public ImageView commentLike;
@@ -115,7 +114,8 @@ public class CommentListAdapter extends BaseAdapter implements Constants {
             viewHolder.commentLike = (ImageView) convertView.findViewById(R.id.commentLike);
             viewHolder.commentAction = (ImageView) convertView.findViewById(R.id.commentAction);
             viewHolder.commentLikesCount = (TextView) convertView.findViewById(R.id.commentLikesCount);
-			viewHolder.commentText = (EmojiconTextView) convertView.findViewById(R.id.commentText);
+			viewHolder.commentText = (TextView) convertView.findViewById(R.id.commentText);
+            viewHolder.commentText.setTypeface(App.getInstance().getFont());
             viewHolder.commentAuthor = (TextView) convertView.findViewById(R.id.commentAuthor);
             viewHolder.commentTimeAgo = (TextView) convertView.findViewById(R.id.commentTimeAgo);
 

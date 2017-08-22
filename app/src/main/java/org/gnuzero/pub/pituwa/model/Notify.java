@@ -36,11 +36,11 @@ public class Notify extends Application implements Constants, Parcelable {
 
         } catch (Throwable t) {
 
-            Log.e("Notify", "Could not parse malformed JSON: \"" + jsonData.toString() + "\"");
+            ////Log.e("Notify", "Could not parse malformed JSON: \"" + jsonData.toString() + "\"");
 
         } finally {
 
-            Log.d("Notify", jsonData.toString());
+            ////Log.d("Notify", jsonData.toString());
         }
     }
 

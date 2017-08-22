@@ -1,16 +1,22 @@
 package org.gnuzero.pub.pituwa.app;
 
 import android.app.Application;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.location.Address;
-import android.location.Geocoder;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
+import android.support.annotation.IntegerRes;
 import android.text.TextUtils;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,11 +25,20 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
+import org.gnuzero.pub.pituwa.db.ItemsReaderDbHelper;
+import org.gnuzero.pub.pituwa.db.ItemsSql;
+import org.gnuzero.pub.pituwa.model.Item;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -32,7 +47,6 @@ import java.util.Map;
 import org.gnuzero.pub.pituwa.R;
 import org.gnuzero.pub.pituwa.constants.Constants;
 import org.gnuzero.pub.pituwa.util.CustomRequest;
-import org.gnuzero.pub.pituwa.util.GPSTracker;
 import org.gnuzero.pub.pituwa.util.LruBitmapCache;
 
 public class App extends Application implements Constants {
@@ -44,14 +58,14 @@ public class App extends Application implements Constants {
 
 	private static App mInstance;
 
-    private SharedPreferences sharedPref;
+    private Typeface font;
 
-    private GPSTracker gps;
+    private SharedPreferences sharedPref;
 
     private String username, fullname, accessToken, gcmToken = "", fb_id = "", photoUrl = "", coverUrl = "", area = "", country = "", city = "";
     private Double lat = 0.000000, lng = 0.000000;
     private long id;
-    private int distance = 50, popular = 0, state, admob = 1, allowCommentReplyGCM, errorCode, notificationsCount = 0;
+    private int distance = 50, popular = 0, state, admob = 0, allowCommentReplyGCM, errorCode, notificationsCount = 0;
 
 	@Override
 	public void onCreate() {
@@ -62,7 +76,6 @@ public class App extends Application implements Constants {
         sharedPref = this.getSharedPreferences(getString(R.string.settings_file), Context.MODE_PRIVATE);
 
         this.readData();
-
         //getLocation();
 	}
 
@@ -73,7 +86,6 @@ public class App extends Application implements Constants {
     	NetworkInfo netInfo = cm.getActiveNetworkInfo();
     	
     	if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-    		
     		return true;
     	}
     	
@@ -131,6 +143,10 @@ public class App extends Application implements Constants {
         App.getInstance().readData();
     }
 
+    public String gPackageName() {
+        return getApplicationContext().getPackageName();
+    }
+
     public void reload() {
 
         if (App.getInstance().isConnected() && App.getInstance().getId() != 0) {
@@ -169,9 +185,15 @@ public class App extends Application implements Constants {
         }
     }
 
-    public void updateGeoLocation() {
+    public void updateGeoLocation()
+    {
 
         // empty here ;)
+    }
+
+    public Typeface getFont() {
+        if (font == null) font = Typeface.createFromAsset(getAssets(), "fonts/WARNA.ttf");
+        return font;
     }
 
     public Boolean authorize(JSONObject authObj) {
@@ -277,7 +299,6 @@ public class App extends Application implements Constants {
 
                             if (!response.getBoolean("error")) {
 
-//                                    Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
                             }
 
                         } catch (JSONException e) {
@@ -288,8 +309,6 @@ public class App extends Application implements Constants {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
-//                    hidepDialog();
             }
         }) {
 
@@ -298,7 +317,6 @@ public class App extends Application implements Constants {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("accountId", Long.toString(App.getInstance().getId()));
                 params.put("accessToken", App.getInstance().getAccessToken());
-
                 params.put("gcm_regId", gcmToken);
 
                 return params;
@@ -556,6 +574,88 @@ public class App extends Application implements Constants {
 		return mInstance;
 	}
 
+	public Item getItemById(String id) {
+        ItemsReaderDbHelper mDbHelper = new ItemsReaderDbHelper(getApplicationContext());
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        String[] projection = getColumns();
+        String selection = ItemsSql.ItemEntry.COLUMN_ID + " = ?";
+        String[] selectionArgs = { id };
+
+        Cursor cursor = db.query(ItemsSql.ItemEntry.TABLE_NAME, projection, selection,
+                                        selectionArgs, null, null, null);
+
+        ArrayList<Item> offlineItems = mapCursorToItemModel(cursor);
+
+        cursor.close();
+        db.close();
+        return offlineItems.get(0);
+    }
+
+	public ArrayList<Item> getOfflineItems() {
+        ItemsReaderDbHelper mDbHelper = new ItemsReaderDbHelper(getApplicationContext());
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        String[] projection = getColumns();
+        String sortOrder = ItemsSql.ItemEntry.COLUMN_ID + " DESC";
+
+        Cursor cursor = db.query(ItemsSql.ItemEntry.TABLE_NAME, projection, null,  null,  null, null, sortOrder);
+        ArrayList<Item> items = mapCursorToItemModel(cursor);
+        cursor.close();
+        db.close();
+
+        return items;
+    }
+
+    public String[] getColumns() {
+        String[] projection = {
+             ItemsSql.ItemEntry.COLUMN_ID,
+             ItemsSql.ItemEntry.COLUMN_TITLE,
+             ItemsSql.ItemEntry.COLUMN_IMAGE_URL,
+             ItemsSql.ItemEntry.COLUMN_CONTENT,
+             ItemsSql.ItemEntry.COLUMN_DATE,
+             ItemsSql.ItemEntry.COLUMN_CATEGORY_TITLE,
+             ItemsSql.ItemEntry.COLUMN_ITEM_DESCRIPTION,
+             ItemsSql.ItemEntry.COLUMN_MY_LIKE,
+             ItemsSql.ItemEntry.COLUMN_CREATE_AT,
+             ItemsSql.ItemEntry.COLUMN_LIKES_COUNT,
+             ItemsSql.ItemEntry.COLUMN_CATEGORY_ID,
+             ItemsSql.ItemEntry.COLUMN_VIDEO_URL
+        };
+        
+        return projection;
+    }
+
+    public ArrayList<Item> mapCursorToItemModel(Cursor cursor) {
+        ArrayList<Item> offlineItems = new ArrayList<>();
+        while(cursor.moveToNext()) {
+            Boolean myLike = false;
+            long itemId =      cursor.getLong(cursor.getColumnIndexOrThrow(ItemsSql.ItemEntry.COLUMN_ID));
+            String itemTitle = cursor.getString(cursor.getColumnIndexOrThrow(ItemsSql.ItemEntry.COLUMN_TITLE));
+            String imageUrl =  cursor.getString(cursor.getColumnIndexOrThrow(ItemsSql.ItemEntry.COLUMN_IMAGE_URL));
+            String content =   cursor.getString(cursor.getColumnIndexOrThrow(ItemsSql.ItemEntry.COLUMN_CONTENT));
+            String date      = cursor.getString(cursor.getColumnIndexOrThrow(ItemsSql.ItemEntry.COLUMN_DATE));
+            String categoryTitle = cursor.getString(cursor.getColumnIndexOrThrow(ItemsSql.ItemEntry.COLUMN_CATEGORY_TITLE));
+            String itemDescription = cursor.getString(cursor.getColumnIndexOrThrow(ItemsSql.ItemEntry.COLUMN_ITEM_DESCRIPTION));
+            if(cursor.getInt(cursor.getColumnIndexOrThrow(ItemsSql.ItemEntry.COLUMN_MY_LIKE)) == 1) myLike = true;
+            Integer createAt = cursor.getInt(cursor.getColumnIndexOrThrow(ItemsSql.ItemEntry.COLUMN_CREATE_AT));
+            Integer likeCount = cursor.getInt(cursor.getColumnIndexOrThrow(ItemsSql.ItemEntry.COLUMN_LIKES_COUNT));
+            Integer categoryId = cursor.getInt(cursor.getColumnIndexOrThrow(ItemsSql.ItemEntry.COLUMN_CATEGORY_ID));
+            String videoUrl = cursor.getString(cursor.getColumnIndexOrThrow(ItemsSql.ItemEntry.COLUMN_VIDEO_URL));
+
+            offlineItems.add(new Item(itemId, itemTitle, imageUrl, content, date, categoryTitle,
+                    itemDescription, myLike, createAt, likeCount, categoryId, videoUrl));
+        }
+        cursor.close();
+        return offlineItems;
+    }
+
+    public void storeForOfflineUse(ArrayList<Item> items) {
+
+        new SaveItemsTask().execute(items.toArray(new Item[items.size()]));
+
+    }
+
 	public RequestQueue getRequestQueue() {
 
 		if (mRequestQueue == null) {
@@ -590,4 +690,93 @@ public class App extends Application implements Constants {
 			mRequestQueue.cancelAll(tag);
 		}
 	}
+
+	public void setUpHeadlines(final TextView tv) {
+        CustomRequest jsonReq = new CustomRequest(METHOD_HEADLINES, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        ArrayList<String>  sHeadlines = new ArrayList<>();
+                        try {
+                            JSONArray headlines = response.getJSONArray("headlines");
+
+                            for (Integer i = 0; i < headlines.length(); i++) {
+                                sHeadlines.add(headlines.getString(i));
+                            }
+
+                            String s1 = new String(sHeadlines.get(0).getBytes("ISO-8859-1"));
+                            tv.setText(s1);
+
+                        } catch (JSONException e) {
+                            //e.printStackTrace();
+                        } catch (UnsupportedEncodingException e) {
+                        } finally {
+
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+
+        int socketTimeout = 0;//0 seconds - change to what you want
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+
+        jsonReq.setRetryPolicy(policy);
+
+        App.getInstance().addToRequestQueue(jsonReq);
+
+        this.gcmToken = gcmToken;
+
+        ///////////
+    }
+
+    private class SaveItemsTask extends AsyncTask<Item, Integer, Integer> {
+
+        protected Integer doInBackground(Item... items) {
+            ItemsReaderDbHelper mDbHelper = new ItemsReaderDbHelper(App.mInstance.getApplicationContext());
+            SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+            for (Integer i = 0; i < items.length; i++) {
+
+                String[] projection = {ItemsSql.ItemEntry.COLUMN_ID};
+                String selection = ItemsSql.ItemEntry.COLUMN_ID + " = ?";
+                String[] selectionArgs = { Long.toString(items[i].getId()) };
+                Cursor cursor = db.query(ItemsSql.ItemEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+
+                if (cursor.getCount() == 0) {
+                    ContentValues values = new ContentValues();
+
+                    Integer myLike = 0;
+                    if (items[i].isMyLike()) myLike = 1;
+
+                    values.put(ItemsSql.ItemEntry.COLUMN_ID, items[i].getId());
+                    values.put(ItemsSql.ItemEntry.COLUMN_TITLE, items[i].getTitle());
+                    values.put(ItemsSql.ItemEntry.COLUMN_IMAGE_URL, items[i].getImgUrl());
+                    values.put(ItemsSql.ItemEntry.COLUMN_CONTENT, items[i].getContent());
+
+                    values.put(ItemsSql.ItemEntry.COLUMN_DATE, items[i].getDate());
+                    values.put(ItemsSql.ItemEntry.COLUMN_CATEGORY_TITLE, items[i].getCategoryTitle());
+                    values.put(ItemsSql.ItemEntry.COLUMN_ITEM_DESCRIPTION, items[i].getDescription());
+                    values.put(ItemsSql.ItemEntry.COLUMN_MY_LIKE, myLike);
+                    values.put(ItemsSql.ItemEntry.COLUMN_CREATE_AT, items[i].getCreateAt());
+                    values.put(ItemsSql.ItemEntry.COLUMN_LIKES_COUNT, items[i].getLikesCount());
+                    values.put(ItemsSql.ItemEntry.COLUMN_CATEGORY_ID, items[i].getCategoryId());
+                    values.put(ItemsSql.ItemEntry.COLUMN_VIDEO_URL, items[i].getVideoUrl());
+                    Long id = db.insert(ItemsSql.ItemEntry.TABLE_NAME, null, values);
+                }
+                cursor.close();
+            }
+            db.close();
+            return 0;
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+        }
+
+        protected void onPostExecute(Long result) {
+
+        }
+    }
 }

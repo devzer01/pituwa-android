@@ -99,6 +99,7 @@ public class StreamFragment extends Fragment implements Constants, SwipeRefreshL
         mItemsContainer.setOnRefreshListener(this);
 
         mMessage = (TextView) rootView.findViewById(R.id.message);
+        mMessage.setTypeface(App.getInstance().getFont());
 
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
 
@@ -126,9 +127,9 @@ public class StreamFragment extends Fragment implements Constants, SwipeRefreshL
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount && (viewMore) && !(mItemsContainer.isRefreshing()))
                         {
                             loadingMore = true;
-                            Log.e("...", "Last Item Wow !");
+                            //Log.e("...", "Last Item Wow !");
 
-                            getItems();
+                            handleGettingItems();
                         }
                     }
                 }
@@ -164,11 +165,25 @@ public class StreamFragment extends Fragment implements Constants, SwipeRefreshL
         if (!restore) {
 
             showMessage(getText(R.string.msg_loading_2).toString());
-
-            getItems();
+            handleGettingItems();
         }
 
         return rootView;
+    }
+
+    public void handleGettingItems() {
+        if (App.getInstance().isConnected()) {
+
+            getItems();
+
+        } else {
+
+            ArrayList<Item> list = App.getInstance().getOfflineItems();
+            itemsList.clear();
+            itemsList.addAll(list);
+            loadingComplete();
+
+        }
     }
 
     @Override
@@ -184,16 +199,7 @@ public class StreamFragment extends Fragment implements Constants, SwipeRefreshL
 
     @Override
     public void onRefresh() {
-
-        if (App.getInstance().isConnected()) {
-
-            itemId = 0;
-            getItems();
-
-        } else {
-
-            mItemsContainer.setRefreshing(false);
-        }
+        handleGettingItems();
     }
 
     @Override
@@ -204,7 +210,7 @@ public class StreamFragment extends Fragment implements Constants, SwipeRefreshL
         if (requestCode == STREAM_NEW_POST && resultCode == getActivity().RESULT_OK && null != data) {
 
             itemId = 0;
-            getItems();
+            handleGettingItems();
 
         } else if (requestCode == ITEM_EDIT && resultCode == getActivity().RESULT_OK) {
 
@@ -263,6 +269,7 @@ public class StreamFragment extends Fragment implements Constants, SwipeRefreshL
 
                                             itemsList.add(item);
                                         }
+                                        App.getInstance().storeForOfflineUse(itemsList);
                                     }
                                 }
                             }

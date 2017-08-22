@@ -56,7 +56,7 @@ public class SignupFragment extends Fragment implements Constants {
     Button signupJoinHowBtn;
     TextView mLabelTerms, mRegularSignup, mLabelAuthorizationViaFacebook, mSigninButton;
 
-    private String username, password, email, language, fullname;
+    private String username = "", password = "", email = "", language = "", fullname = "";
     String facebookId = "", facebookName = "", facebookEmail = "", facebookPicture = "", facebookCover = "";
 
     private Boolean restore = false;
@@ -98,6 +98,7 @@ public class SignupFragment extends Fragment implements Constants {
         }
 
         loginButton = (LoginButton) rootView.findViewById(R.id.login_button);
+        loginButton.setTypeface(App.getInstance().getFont());
         loginButton.setReadPermissions("user_friends, email, public_profile");
 
         if (!FACEBOOK_AUTHORIZATION) {
@@ -107,13 +108,30 @@ public class SignupFragment extends Fragment implements Constants {
 
         //mActionContainer = (LinearLayout) rootView.findViewById(R.id.actionContainer);
         //actionContainerLogin = (LinearLayout) rootView.findViewById(R.id.actionContainerLogin);
+        TextView mHeader1 = (TextView) rootView.findViewById(R.id.header1);
+        mHeader1.setTypeface(App.getInstance().getFont());
+
+        TextView mHeader2 = (TextView) rootView.findViewById(R.id.header2);
+        mHeader2.setTypeface(App.getInstance().getFont());
+
+        TextView mHeader3 = (TextView) rootView.findViewById(R.id.header3);
+        mHeader3.setTypeface(App.getInstance().getFont());
+
+        TextView mHeader5 = (TextView) rootView.findViewById(R.id.header5);
+        mHeader5.setTypeface(App.getInstance().getFont());
+
 
         signupUsername = (EditText) rootView.findViewById(R.id.signupUsername);
+        signupUsername.setTypeface(App.getInstance().getFont());
         signupFullname = (EditText) rootView.findViewById(R.id.signupFullname);
+        signupFullname.setTypeface(App.getInstance().getFont());
         signupPassword = (EditText) rootView.findViewById(R.id.signupPassword);
+        signupPassword.setTypeface(App.getInstance().getFont());
         signupEmail = (EditText) rootView.findViewById(R.id.signupEmail);
+        signupEmail.setTypeface(App.getInstance().getFont());
 
         mLabelTerms = (TextView) rootView.findViewById(R.id.SignupLabelTerms);
+        mLabelTerms.setTypeface(App.getInstance().getFont());
 
         mLabelTerms.setOnClickListener(new View.OnClickListener() {
 
@@ -186,8 +204,6 @@ public class SignupFragment extends Fragment implements Constants {
 
                 if (App.getInstance().isConnected() && checkUsername()) {
 
-//                        showpDialog();
-
                     CustomRequest jsonReq = new CustomRequest(Request.Method.POST, METHOD_APP_CHECKUSERNAME, null,
                             new Response.Listener<JSONObject>() {
                                 @Override
@@ -209,8 +225,6 @@ public class SignupFragment extends Fragment implements Constants {
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-
-//                                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
 
                         }
                     }) {
@@ -235,44 +249,8 @@ public class SignupFragment extends Fragment implements Constants {
             }
         });
 
-        signupFullname.addTextChangedListener(new TextWatcher() {
-
-            public void afterTextChanged(Editable s) {
-
-                checkFullname();
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        });
-
-        signupPassword.addTextChangedListener(new TextWatcher() {
-
-            public void afterTextChanged(Editable s) {
-
-                checkPassword();
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        });
-
-        signupEmail.addTextChangedListener(new TextWatcher() {
-
-            public void afterTextChanged(Editable s) {
-
-                checkEmail();
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        });
-
         signupJoinHowBtn = (Button) rootView.findViewById(R.id.signupJoinHowBtn);
-
+        signupJoinHowBtn.setTypeface(App.getInstance().getFont());
         signupJoinHowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -296,11 +274,11 @@ public class SignupFragment extends Fragment implements Constants {
                                     @Override
                                     public void onResponse(JSONObject response) {
 
-                                        Log.e("Profile", "Malformed JSON: \"" + response.toString() + "\"");
+                                        ////Log.e("Profile", "Malformed JSON: \"" + response.toString() + "\"");
 
                                         if (App.getInstance().authorize(response)) {
 
-                                            Log.e("Profile", "Malformed JSON: \"" + response.toString() + "\"");
+                                            ////Log.e("Profile", "Malformed JSON: \"" + response.toString() + "\"");
 
                                             App.getInstance().updateGeoLocation();
 
@@ -326,7 +304,7 @@ public class SignupFragment extends Fragment implements Constants {
 
                                                 default: {
 
-                                                    Log.e("Profile", "Could not parse malformed JSON: \"" + response.toString() + "\"");
+                                                    //Log.e("Profile", "Could not parse malformed JSON: \"" + response.toString() + "\"");
                                                     break;
                                                 }
                                             }
@@ -340,8 +318,8 @@ public class SignupFragment extends Fragment implements Constants {
                             @Override
                             public void onErrorResponse(VolleyError error) {
 
-                                Log.e("Error", "Malformed JSON: \"" + error.toString() + "\"");
-                                Log.e("Error", "Malformed JSON: \"" + error.getMessage() + "\"");
+                                //Log.e("Error", "Malformed JSON: \"" + error.toString() + "\"");
+                                //Log.e("Error", "Malformed JSON: \"" + error.getMessage() + "\"");
 
                                 Toast.makeText(getActivity(), getText(R.string.error_data_loading), Toast.LENGTH_LONG).show();
 
@@ -358,12 +336,12 @@ public class SignupFragment extends Fragment implements Constants {
                                 params.put("fullname", fullname);
                                 params.put("password", password);
                                 params.put("email", email);
-                                params.put("language", language);
-                                params.put("facebookId", facebookId);
+                                params.put("language", getStrOrEmpty(language));
+                                params.put("facebookId", getStrOrEmpty(facebookId));
                                 params.put("clientId", CLIENT_ID);
-                                params.put("profilePicture", facebookPicture);
-                                params.put("coverPicture", facebookCover);
-                                params.put("gcm_regId", App.getInstance().getGcmToken());
+                                params.put("profilePicture", getStrOrEmpty(facebookPicture));
+                                params.put("coverPicture", getStrOrEmpty(facebookCover));
+                                params.put("gcm_regId", getStrOrEmpty(App.getInstance().getGcmToken()));
 
                                 return params;
                             }
@@ -416,13 +394,13 @@ public class SignupFragment extends Fragment implements Constants {
 
                                             } catch (Throwable t) {
 
-                                                Log.e("Profile", "Could not parse malformed JSON: \"" + object.toString() + "\"");
+                                                //Log.e("Profile", "Could not parse malformed JSON: \"" + object.toString() + "\"");
 
                                             } finally {
 
                                                 if (AccessToken.getCurrentAccessToken() != null) LoginManager.getInstance().logOut();
 
-                                                Log.d("Profile", object.toString());
+                                                //Log.d("Profile", object.toString());
 
                                                 if (App.getInstance().isConnected()) {
 
@@ -476,6 +454,11 @@ public class SignupFragment extends Fragment implements Constants {
 
         // Inflate the layout for this fragment
         return rootView;
+    }
+
+    public String getStrOrEmpty(String str) {
+        if (str == null) return "";
+        else return str;
     }
 
     public void onDestroyView() {
@@ -692,6 +675,7 @@ public class SignupFragment extends Fragment implements Constants {
         if (email.length() == 0) {
 
             signupEmail.setError(getString(R.string.error_field_empty));
+
 
             return false;
         }

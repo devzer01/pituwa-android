@@ -15,7 +15,7 @@
 
     <!-- AdMob Banner Id -->
 
-    <string name="banner_ad_unit_id">ca-app-pub-4431395448791719~8064650491</string>
+    <string name="banner_ad_unit_id">ca-app-pub-4431395448791719/9541383699</string>
 
     <!-- Share text -->
 
@@ -102,22 +102,22 @@
     <string name="msg_loading">මදක් රැදීසිටින්න</string>
     <string name="msg_loading_2">මදක් රැදීසිටින්න</string>
     <string name="msg_network_error">ඔබගේ අන්තර්ජාල සේවාව පරික්ෂානරන්න</string>
-    <string name="msg_account_blocked">This account is blocked by a moderator.</string>
+    <string name="msg_account_blocked">ඔබගේ ගිණුම විසන්දි කො ඇත.</string>
     <string name="msg_copied_to_clipboard">පිටපත් ගතය. (ක්ලිප්බෝර්ඩ් එකේ)</string>
-    <string name="msg_enter_item">Please write something or attach photo.</string>
-    <string name="msg_enter_msg">Please write something or attach photo.</string>
+    <string name="msg_enter_item">කරැනාකර ලිවීමක් හො ඇමිනීමක් කරන්න.</string>
+    <string name="msg_enter_msg">කරැනාකර ලිවීමක් හො ඇමිනීමක් කරන්න.</string>
     <string name="msg_password_changed">රහස්පද වෙනස්කිරීම සාර්තකයි</string>
     <string name="msg_settings_saved">පිටුපාලක වෙනස්කම් ස්තිරගතයි.</string>
-    <string name="msg_ticket_send_success">Your request is accepted! You will receive a response to the email, which is indicated in the request.</string>
-    <string name="msg_password_reset_link_sent">A message with link to reset your password has been sent to your email.</string>
+    <string name="msg_ticket_send_success">ඔබගේ විමසීමට පිලිතුරක් පැය කිහිපයකින් බලා පොෝතු වන්න.</string>
+    <string name="msg_password_reset_link_sent">ඔබගේ රහස්පදය වෙනස් කිරීමට අවශ්‍ය උපදෙස් විද්‍යුත් තැපැල මගින් සපයන ලදී.</string>
     <string name="msg_no_such_user_in_bd">No such user in database</string>
     <string name="msg_connect_to_facebook_success">You have successfully linked application with your account on Facebook!</string>
     <string name="msg_connect_to_facebook_error">Your account on Facebook is already associated with another account.</string>
     <string name="msg_connect_to_facebook_removed">Connect with your Facebook account removed.</string>
     <string name="msg_comment_has_been_added">Comment has been added.</string>
     <string name="msg_comments_disabled">Comments are closed for this item.</string>
-    <string name="msg_auth_prompt_like">To get started, sign in to your account or register.</string>
-    <string name="msg_auth_prompt_comment">Make comments can only registered users.</string>
+    <string name="msg_auth_prompt_like">පනාපය ප්‍රකාෂකිරිමට සත්‍යාපනය වන්න.</string>
+    <string name="msg_auth_prompt_comment">පිලිතුරු සැපයීම ලියාපදින්චි සාමාජිකයන්ට පමණයි.</string>
 
     <string name="error_signin">වැරදි නාමාත්‍රයක් හො රහස්පදයක්</string>
     <string name="error_internet_connection">අනතර්ජාල සම්බන්ධය විසංදිවීද‍?</string>
@@ -202,10 +202,10 @@
     <string-array name="navDrawerItems">
         <item>නවතම පිටු</item>
         <item>පිටු ජාති</item>
-        <!--<item>පිටු හොයමු</item>-->
         <item>ජනප්‍රිය පිටු</item>
         <item>මගේ සිත්ගත් පිටු</item>
-        <!--<item>කෂ්ණික පුවත්</item>-->
+        <!--<item>ව්ඩ්යෝ පටි</item>
+        <item>නිසදැස්</item>-->
         <item>මගේ පිටුව</item>
         <item>ඉවත්වයෑම</item>
     </string-array>
@@ -213,10 +213,8 @@
     <string-array name="navDrawerIcons">
         <item>@drawable/ic_action_stream</item>
         <item>@drawable/ic_action_categories</item>
-        <!--<item>@drawable/ic_action_search</item>-->
         <item>@drawable/ic_action_popular</item>
         <item>@drawable/ic_action_favorites</item>
-        <item>@drawable/ic_action_notifications</item>
         <item>@drawable/ic_action_profile</item>
         <item>@drawable/ic_action_remove</item>
     </string-array>

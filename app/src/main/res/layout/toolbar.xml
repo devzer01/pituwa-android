@@ -8,6 +8,5 @@
     android:gravity="center"
     android:minHeight="?attr/actionBarSize"
     android:background="@drawable/app_layout_background"
-    android:navigationIcon="@drawable/emoji_1f33c"
     local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     local:popupTheme="@style/ThemeOverlay.AppCompat.Light" />

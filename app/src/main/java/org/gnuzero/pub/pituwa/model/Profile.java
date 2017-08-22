@@ -71,11 +71,11 @@ public class Profile extends Application implements Constants, Parcelable {
 
         } catch (Throwable t) {
 
-            Log.e("Profile", "Could not parse malformed JSON: \"" + jsonData.toString() + "\"");
+            ////Log.e("Profile", "Could not parse malformed JSON: \"" + jsonData.toString() + "\"");
 
         } finally {
 
-            Log.d("Profile", jsonData.toString());
+            ////Log.d("Profile", jsonData.toString());
         }
     }
 

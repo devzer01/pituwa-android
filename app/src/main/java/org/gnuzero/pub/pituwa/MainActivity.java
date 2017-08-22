@@ -91,11 +91,13 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
 
         if (App.getInstance().getAdmob() == ADMOB_ENABLED) {
 
-            mContainerAdmob.setVisibility(View.GONE);
+            mContainerAdmob.setVisibility(View.VISIBLE);
 
             AdView mAdView = (AdView) findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().build();
             mAdView.loadAd(adRequest);
+        } else {
+            mContainerAdmob.setVisibility(View.GONE);
         }
 
         if (!restore) {

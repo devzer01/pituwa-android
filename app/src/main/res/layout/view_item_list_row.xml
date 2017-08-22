@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:emojicon="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -20,7 +19,27 @@
             android:layout_height="256dp"
             android:id="@+id/itemImg"
             android:src="@drawable/img_loading"
+            android:visibility="gone"
             android:scaleType="centerCrop" />
+
+        <RelativeLayout
+            android:id="@+id/video_frame"
+            android:layout_width="match_parent"
+            android:layout_height="720px"
+            android:background="#fff">
+
+            <VideoView
+                android:id="@+id/video_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:visibility="visible" />
+        </RelativeLayout>
+
 
         <LinearLayout
             android:orientation="vertical"
@@ -28,7 +47,7 @@
             android:layout_height="1dp"
             android:background="@color/postSeparatorLine"
             android:id="@+id/itemImgSeparatorLine"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="1dp" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -72,7 +91,7 @@
                 android:gravity="right" />
         </LinearLayout>
 
-        <github.ankushsachdeva.emojicon.EmojiconTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Item Text"
@@ -83,7 +102,6 @@
             android:textColorLink="#5BCFF2"
             android:textColor="@color/black"
             android:textSize="16dp"
-            emojicon:emojiconSize="24dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="10dp"

@@ -4,16 +4,22 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -21,6 +27,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -37,11 +44,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import github.ankushsachdeva.emojicon.EditTextImeBackListener;
-import github.ankushsachdeva.emojicon.EmojiconEditText;
-import github.ankushsachdeva.emojicon.EmojiconGridView;
-import github.ankushsachdeva.emojicon.EmojiconsPopup;
-import github.ankushsachdeva.emojicon.emoji.Emojicon;
 import org.gnuzero.pub.pituwa.adapter.CommentListAdapter;
 import org.gnuzero.pub.pituwa.app.App;
 import org.gnuzero.pub.pituwa.constants.Constants;
@@ -69,20 +71,20 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
     RelativeLayout mErrorScreen, mLoadingScreen, mEmptyScreen;
     LinearLayout mContentScreen, mCommentFormContainer, mPostTopSeparatorLine, mItemImgSeparatorLine;
 
-    EmojiconEditText mCommentText;
+    EditText mCommentText;
 
     ListView listView;
     Button mRetryBtn;
 
-    View mListViewHeader;
+    RelativeLayout mVdFrame;
 
-    /*YouTubePlayerView youTubePlayerView;
-    YouTubePlayer youTubePlayer;*/
+    View mListViewHeader;
 
     ImageView mItemLike, mItemShare, mItemComment, mEmojiBtn, mSendComment;
     TextView mItemCategory, mItemDate, mItemTitle, mItemLikesCount, mItemCommentsCount, mPostMessage;
     ImageView mItemImg;
     WebView mWebView;
+    VideoView mVdView;
 
     ImageLoader imageLoader = App.getInstance().getImageLoader();
 
@@ -100,7 +102,7 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
     private Boolean restore = false;
     private Boolean preload = false;
 
-    EmojiconsPopup popup;
+
 
     public ViewItemFragment() {
         // Required empty public constructor
@@ -129,73 +131,6 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_view_item, container, false);
-
-        popup = new EmojiconsPopup(rootView, getActivity());
-
-        popup.setSizeForSoftKeyboard();
-
-        popup.setOnEmojiconClickedListener(new EmojiconGridView.OnEmojiconClickedListener() {
-
-            @Override
-            public void onEmojiconClicked(Emojicon emojicon) {
-
-                mCommentText.append(emojicon.getEmoji());
-            }
-        });
-
-        popup.setOnEmojiconBackspaceClickedListener(new EmojiconsPopup.OnEmojiconBackspaceClickedListener() {
-
-            @Override
-            public void onEmojiconBackspaceClicked(View v) {
-
-                KeyEvent event = new KeyEvent(0, 0, 0, KeyEvent.KEYCODE_DEL, 0, 0, 0, 0, KeyEvent.KEYCODE_ENDCALL);
-                mCommentText.dispatchKeyEvent(event);
-            }
-        });
-
-        popup.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
-            @Override
-            public void onDismiss() {
-
-                setIconEmojiKeyboard();
-            }
-        });
-
-        popup.setOnSoftKeyboardOpenCloseListener(new EmojiconsPopup.OnSoftKeyboardOpenCloseListener() {
-
-            @Override
-            public void onKeyboardOpen(int keyBoardHeight) {
-
-            }
-
-            @Override
-            public void onKeyboardClose() {
-
-                if (popup.isShowing())
-
-                    popup.dismiss();
-            }
-        });
-
-        popup.setOnEmojiconClickedListener(new EmojiconGridView.OnEmojiconClickedListener() {
-
-            @Override
-            public void onEmojiconClicked(Emojicon emojicon) {
-
-                mCommentText.append(emojicon.getEmoji());
-            }
-        });
-
-        popup.setOnEmojiconBackspaceClickedListener(new EmojiconsPopup.OnEmojiconBackspaceClickedListener() {
-
-            @Override
-            public void onEmojiconBackspaceClicked(View v) {
-
-                KeyEvent event = new KeyEvent(0, 0, 0, KeyEvent.KEYCODE_DEL, 0, 0, 0, 0, KeyEvent.KEYCODE_ENDCALL);
-                mCommentText.dispatchKeyEvent(event);
-            }
-        });
 
         if (savedInstanceState != null) {
 
@@ -228,17 +163,18 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
         mContentScreen = (LinearLayout) rootView.findViewById(R.id.contentScreen);
         mCommentFormContainer = (LinearLayout) rootView.findViewById(R.id.commentFormContainer);
 
-        mCommentText = (EmojiconEditText) rootView.findViewById(R.id.commentText);
+        mCommentText = (EditText) rootView.findViewById(R.id.commentText);
         mSendComment = (ImageView) rootView.findViewById(R.id.sendCommentImg);
         mEmojiBtn = (ImageView) rootView.findViewById(R.id.emojiBtn);
 
         mSendComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 send();
             }
         });
+
+
 
         mRetryBtn = (Button) rootView.findViewById(R.id.retryBtn);
 
@@ -251,6 +187,8 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
                     showLoadingScreen();
 
                     getItem();
+                } else {
+                    getOfflineItem();
                 }
             }
         });
@@ -264,6 +202,7 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
         listView.setAdapter(itemAdapter);
 
         mWebView = (WebView) mListViewHeader.findViewById(R.id.webView);
+        mVdView = (VideoView) mListViewHeader.findViewById(R.id.video_view);
 
         mItemLike = (ImageView) mListViewHeader.findViewById(R.id.itemLike);
         mItemShare = (ImageView) mListViewHeader.findViewById(R.id.itemShare);
@@ -279,56 +218,20 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
         mItemLikesCount = (TextView) mListViewHeader.findViewById(R.id.itemLikesCount);
         mItemCommentsCount = (TextView) mListViewHeader.findViewById(R.id.itemCommentsCount);
         mItemImg = (ImageView) mListViewHeader.findViewById(R.id.itemImg);
+        mVdFrame = (RelativeLayout) mListViewHeader.findViewById(R.id.video_frame);
 
-        /*YouTubePlayerView playerView = (YouTubePlayerView) mListViewHeader.findViewById(R.id.player);
-        playerView.initialize("AIzaSyD1OSP942b9_XJrnxNfSWMVgznrc6PA9_w", this);*/
-
-
-        if (!EMOJI_KEYBOARD) {
-
-            mEmojiBtn.setVisibility(View.GONE);
-        }
-
-        mEmojiBtn.setOnClickListener(new View.OnClickListener() {
-
+        mVdView.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View v, MotionEvent me) {
 
-                if (!popup.isShowing()) {
-
-                    if (popup.isKeyBoardOpen()){
-
-                        popup.showAtBottom();
-                        setIconSoftKeyboard();
-
-                    } else {
-
-                        mCommentText.setFocusableInTouchMode(true);
-                        mCommentText.requestFocus();
-                        popup.showAtBottomPending();
-
-                        final InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        inputMethodManager.showSoftInput(mCommentText, InputMethodManager.SHOW_IMPLICIT);
-                        setIconSoftKeyboard();
-                    }
-
+                if (mVdView.isPlaying()) {
+                    mVdView.pause();
                 } else {
-
-                    popup.dismiss();
+                    mVdView.resume();
                 }
+                return true;
             }
         });
-
-        EditTextImeBackListener er = new EditTextImeBackListener() {
-
-            @Override
-            public void onImeBack(EmojiconEditText ctrl, String text) {
-
-                hideEmojiKeyboard();
-            }
-        };
-
-        mCommentText.setOnEditTextImeBackListener(er);
 
         if (!restore) {
 
@@ -338,8 +241,7 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
                 getItem();
 
             } else {
-
-                showErrorScreen();
+                getOfflineItem();
             }
 
         } else {
@@ -366,22 +268,12 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
         return rootView;
     }
 
-    /*@Override
-    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player,
-                                        boolean wasRestored) {
-        if (!wasRestored) {
-            player.cueVideo("nCgQDjiotG0");
-        }
-    }*/
+    public void getOfflineItem() {
+        String id = Long.toString(itemId);
 
-    public void hideEmojiKeyboard() {
-
-        popup.dismiss();
-    }
-
-    public void setIconEmojiKeyboard() {
-
-        mEmojiBtn.setBackgroundResource(R.drawable.ic_emoji);
+        item = App.getInstance().getItemById(id);
+        updateItem();
+        mContentContainer.setRefreshing(false);
     }
 
     public void setIconSoftKeyboard() {
@@ -439,12 +331,6 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
         }
     }
 
-    /*@Override
-    public void onInitializationFailure(YouTubePlayer.Provider provider,
-                                        YouTubeInitializationResult errorReason) {
-
-    }*/
-
     @Override
     public void onRefresh() {
 
@@ -454,8 +340,8 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
             getItem();
 
         } else {
-
-            mContentContainer.setRefreshing(false);
+            getOfflineItem();
+            //mContentContainer.setRefreshing(false);
         }
     }
 
@@ -546,7 +432,6 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
                         App.getInstance().addToRequestQueue(jsonReq);
 
                     } else {
-
                         Toast.makeText(getActivity(), getText(R.string.msg_auth_prompt_like), Toast.LENGTH_SHORT).show();
                     }
 
@@ -597,7 +482,20 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
             mItemTitle.setVisibility(View.GONE);
         }
 
-        if (item.getContent().length() != 0 && item.getCategoryId() != 99) {
+        // Setup a play button to start the video
+        if (item.getContent().length() != 0) {
+
+            if (item.hasVideo()) {
+                mItemImg.setVisibility(View.GONE);
+                mVdFrame.setVisibility(View.VISIBLE);
+                mVdView.setVisibility(View.VISIBLE);
+                mVdView.setVideoURI(Uri.parse(item.getVideoUrl()));
+                mVdView.start();
+            } else {
+                mItemImg.setVisibility(View.VISIBLE);
+                mVdView.setVisibility(View.GONE);
+                mVdFrame.setVisibility(View.GONE);
+            }
 
             mWebView.setVisibility(View.VISIBLE);
             mWebView.getSettings().setJavaScriptEnabled(true);
@@ -617,20 +515,15 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
 
             mWebView.loadData(htmlContent, "text/html; charset=utf-8", "UTF-8");
 
-        } else {
-
-            mWebView.setVisibility(View.GONE);
-
         }
 
-        if (item.getImgUrl().length() > 0) {
+        if (item.getImgUrl().length() > 0 && !item.hasVideo()) {
 
             imageLoader.get(item.getImgUrl(), ImageLoader.getImageListener(mItemImg, R.drawable.img_loading, R.drawable.img_loading));
             mItemImg.setVisibility(View.VISIBLE);
             mItemImgSeparatorLine.setVisibility(View.VISIBLE);
 
         } else {
-
             mItemImg.setVisibility(View.GONE);
             mItemImgSeparatorLine.setVisibility(View.GONE);
         }
@@ -652,6 +545,7 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
             mPostMessage.setVisibility(View.VISIBLE);
 
             mPostMessage.setText(getString(R.string.msg_auth_prompt_comment));
+            mPostMessage.setTypeface(App.getInstance().getFont());
         }
     }
 
@@ -668,8 +562,6 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
                             arrayLength = 0;
 
                             if (!response.getBoolean("error")) {
-
-//                                Toast.makeText(ViewItemActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
 
                                 commentsList.clear();
 

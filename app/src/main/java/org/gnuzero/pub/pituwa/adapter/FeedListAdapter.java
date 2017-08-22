@@ -38,6 +38,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
             super(v);
 
             mTitle = (TextView) v.findViewById(R.id.title);
+            mTitle.setTypeface(App.getInstance().getFont());
             mTime = (TextView) v.findViewById(R.id.time);
             mImage = (ImageView) v.findViewById(R.id.image);
             mParent = (MaterialRippleLayout) v.findViewById(R.id.parent);

@@ -32,11 +32,11 @@ public class Category extends Application implements Constants, Parcelable {
 
         } catch (Throwable t) {
 
-            Log.e("Category", "Could not parse malformed JSON: \"" + jsonData.toString() + "\"");
+            //Log.e("Category", "Could not parse malformed JSON: \"" + jsonData.toString() + "\"");
 
         } finally {
 
-            Log.d("Category", jsonData.toString());
+            //Log.d("Category", jsonData.toString());
         }
     }
 

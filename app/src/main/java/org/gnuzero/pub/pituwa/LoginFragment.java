@@ -86,6 +86,7 @@ public class LoginFragment extends Fragment implements Constants {
 
         loginButton = (LoginButton) rootView.findViewById(R.id.login_button);
         loginButton.setReadPermissions("user_friends, email");
+        loginButton.setTypeface(App.getInstance().getFont());
 
         if (!FACEBOOK_AUTHORIZATION) {
 
@@ -93,9 +94,15 @@ public class LoginFragment extends Fragment implements Constants {
         }
 
         signinUsername = (EditText) rootView.findViewById(R.id.signinUsername);
+        signinUsername.setTypeface(App.getInstance().getFont());
         signinPassword = (EditText) rootView.findViewById(R.id.signinPassword);
+        signinPassword.setTypeface(App.getInstance().getFont());
 
         mForgotPassword = (TextView) rootView.findViewById(R.id.forgotPassword);
+        mForgotPassword.setTypeface(App.getInstance().getFont());
+
+        TextView heading = (TextView) rootView.findViewById(R.id.heading);
+        heading.setTypeface(App.getInstance().getFont());
 
         mForgotPassword.setOnClickListener(new View.OnClickListener() {
 
@@ -110,7 +117,12 @@ public class LoginFragment extends Fragment implements Constants {
         });
 
         signinBtn = (Button) rootView.findViewById(R.id.signinBtn);
+        signinBtn.setTypeface(App.getInstance().getFont());
         mSignupBtn = (TextView) rootView.findViewById(R.id.signupButton);
+        mSignupBtn.setTypeface(App.getInstance().getFont());
+
+        TextView fgpass2 = (TextView) rootView.findViewById(R.id.forgotPassword2);
+        fgpass2.setTypeface(App.getInstance().getFont());
 
         signinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,14 +188,14 @@ public class LoginFragment extends Fragment implements Constants {
 
                                             } catch (Throwable t) {
 
-                                                Log.e("Profile", "Could not parse malformed JSON: \"" + object.toString() + "\"");
+                                                //Log.e("Profile", "Could not parse malformed JSON: \"" + object.toString() + "\"");
 
                                             } finally {
 
                                                 if (AccessToken.getCurrentAccessToken() != null)
                                                     LoginManager.getInstance().logOut();
 
-                                                Log.d("Profile", object.toString());
+                                                //Log.d("Profile", object.toString());
 
                                                 if (App.getInstance().isConnected()) {
 

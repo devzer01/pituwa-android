@@ -28,7 +28,7 @@ public class MyFcmListenerService extends FirebaseMessagingService implements Co
         String from = message.getFrom();
         Map data = message.getData();
 
-        Log.e("Message", "Could not parse malformed JSON: \"" + data.toString() + "\"");
+        //Log.e("Message", "Could not parse malformed JSON: \"" + data.toString() + "\"");
 
         generateNotification(getApplicationContext(), data);
     }
@@ -37,7 +37,7 @@ public class MyFcmListenerService extends FirebaseMessagingService implements Co
 //    public void onMessageReceived(String from, Bundle data) {
 //
 //        generateNotification(getApplicationContext(), data);
-//        Log.e("Message", "Could not parse malformed JSON: \"" + data.toString() + "\"");
+//        //Log.e("Message", "Could not parse malformed JSON: \"" + data.toString() + "\"");
 //    }
 
     @Override
@@ -56,7 +56,7 @@ public class MyFcmListenerService extends FirebaseMessagingService implements Co
     // a GCM message.
     private void sendNotification(String msg) {
 
-        Log.e("Message", "Could not parse malformed JSON: \"" + msg + "\"");
+        // //Log.e("Message", "Could not parse malformed JSON: \"" + msg + "\"");
     }
 
     /**

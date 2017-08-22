@@ -17,9 +17,9 @@ public class LoginActivity extends ActivityBase {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.MyMaterialTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 

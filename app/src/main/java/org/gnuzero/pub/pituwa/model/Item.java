@@ -15,11 +15,29 @@ public class Item extends Application implements Constants, Parcelable {
     private long id, fromUserId;
     private int createAt, likesCount, commentsCount, allowComments, categoryId;
     private String timeAgo, date, categoryTitle, itemTitle, itemDescription, itemContent, imgUrl, fromUserUsername, fromUserFullname, fromUserPhotoUrl, area, country, city;
+    private String videoUrl;
     private Double lat = 0.000000, lng = 0.000000;
-    private Boolean myLike;
+    private Boolean myLike = false;
 
     public Item() {
 
+    }
+
+    public Item(long id, String title, String imgUrl, String content, String date, String categoryTitle,
+                String itemDescription, Boolean myLike, int createAt, int likesCount, int categoryId,
+                String videoUrl) {
+        this.setId(id);
+        this.setTitle(title);
+        this.setImgUrl(imgUrl);
+        this.setContent(content);
+        this.setDate(date);
+        this.setCategoryTitle(categoryTitle);
+        this.setDescription(itemDescription);
+        this.setMyLike(myLike);
+        this.setCreateAt(createAt);
+        this.setLikesCount(likesCount);
+        this.setCategoryId(categoryId);
+        this.setVideoUrl(videoUrl);
     }
 
     public Item(JSONObject jsonData) {
@@ -39,6 +57,7 @@ public class Item extends Application implements Constants, Parcelable {
                 this.setCategoryTitle(jsonData.getString("categoryTitle"));
                 this.setCategoryId(jsonData.getInt("category"));
                 this.setImgUrl(jsonData.getString("imgUrl"));
+                if (jsonData.has("videoUrl")) this.setVideoUrl(jsonData.getString("videoUrl"));
                 this.setArea(jsonData.getString("area"));
                 this.setCountry(jsonData.getString("country"));
                 this.setCity(jsonData.getString("city"));
@@ -56,14 +75,20 @@ public class Item extends Application implements Constants, Parcelable {
 
         } catch (Throwable t) {
 
-            Log.e("Item", "Could not parse malformed JSON: \"" + jsonData.toString() + "\"");
+            //Log.e("Item", "Could not parse malformed JSON: \"" + jsonData.toString() + "\"");
 
         } finally {
 
-            Log.d("Item", jsonData.toString());
+
         }
     }
 
+    public Boolean hasVideo() {
+        if (this.videoUrl != null) return (this.videoUrl.trim().length() > 0);
+        else {
+            return false;
+        }
+    }
 
     public long getId() {
         return id;
@@ -76,6 +101,14 @@ public class Item extends Application implements Constants, Parcelable {
     public long getFromUserId() {
 
         return fromUserId;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
+    public String getVideoUrl() {
+        return this.videoUrl;
     }
 
     public void setFromUserId(long fromUserId) {

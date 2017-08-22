@@ -38,7 +38,6 @@ public class AppActivity extends ActivityBase {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.MyMaterialTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app);
 
@@ -57,8 +56,6 @@ public class AppActivity extends ActivityBase {
 
         contentScreen = (LinearLayout) findViewById(R.id.contentScreen);
         loadingScreen = (RelativeLayout) findViewById(R.id.loadingScreen);
-
-
 
         loginBtn = (Button) findViewById(R.id.loginBtn);
         signupBtn = (Button) findViewById(R.id.signupBtn);
@@ -129,7 +126,7 @@ public class AppActivity extends ActivityBase {
                                     App.getInstance().readData();
                                 }
 
-                                Log.d("Auth SUCCESS", response.toString());
+                                //Log.d("Auth SUCCESS", response.toString());
 
                                 loading = false;
 
@@ -141,7 +138,7 @@ public class AppActivity extends ActivityBase {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        Log.e("Auth Error", error.toString());
+                        //Log.e("Auth Error", error.toString());
 
                         Intent intent = new Intent(AppActivity.this, MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

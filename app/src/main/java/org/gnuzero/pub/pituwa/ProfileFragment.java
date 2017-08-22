@@ -315,7 +315,7 @@ public class ProfileFragment extends Fragment implements Constants, SwipeRefresh
                 showLoadingScreen();
                 getData();
 
-                Log.e("Profile", "OnReload");
+                //Log.e("Profile", "OnReload");
 
             } else {
 
@@ -433,7 +433,7 @@ public class ProfileFragment extends Fragment implements Constants, SwipeRefresh
 
         } catch (Exception ex) {
 
-            Log.e("Error", ex.getMessage());
+            //Log.e("Error", ex.getMessage());
         }
     }
 
@@ -1276,7 +1276,7 @@ public class ProfileFragment extends Fragment implements Constants, SwipeRefresh
 
                     hidepDialog();
 
-                    Log.e("failure", request.toString());
+                    //Log.e("failure", request.toString());
                 }
 
                 @Override
@@ -1284,7 +1284,7 @@ public class ProfileFragment extends Fragment implements Constants, SwipeRefresh
 
                     String jsonData = response.body().string();
 
-                    Log.e("response", jsonData);
+                    //Log.e("response", jsonData);
 
                     try {
 
@@ -1316,11 +1316,11 @@ public class ProfileFragment extends Fragment implements Constants, SwipeRefresh
                             }
                         }
 
-                        Log.d("My App", response.toString());
+                        //Log.d("My App", response.toString());
 
                     } catch (Throwable t) {
 
-                        Log.e("My App", "Could not parse malformed JSON: \"" + response.body().string() + "\"");
+                        //Log.e("My App", "Could not parse malformed JSON: \"" + response.body().string() + "\"");
 
                     } finally {
 

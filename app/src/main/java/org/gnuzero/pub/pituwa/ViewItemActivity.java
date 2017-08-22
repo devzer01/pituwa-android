@@ -6,7 +6,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
+import org.gnuzero.pub.pituwa.app.App;
 import org.gnuzero.pub.pituwa.common.ActivityBase;
 import org.gnuzero.pub.pituwa.dialogs.CommentActionDialog;
 import org.gnuzero.pub.pituwa.dialogs.CommentDeleteDialog;
@@ -22,7 +28,6 @@ public class ViewItemActivity extends ActivityBase implements CommentDeleteDialo
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.MyMaterialTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_item);
 
@@ -31,6 +36,19 @@ public class ViewItemActivity extends ActivityBase implements CommentDeleteDialo
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        LinearLayout mContainerAdmob = (LinearLayout) findViewById(R.id.container_admob);
+
+        if (App.getInstance().getAdmob() == ADMOB_ENABLED) {
+
+            mContainerAdmob.setVisibility(View.VISIBLE);
+
+            AdView mAdView = (AdView) findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
+        } else {
+            mContainerAdmob.setVisibility(View.GONE);
+        }
 
         if (savedInstanceState != null) {
 
@@ -65,8 +83,6 @@ public class ViewItemActivity extends ActivityBase implements CommentDeleteDialo
     protected void onPause() {
 
         ViewItemFragment p = (ViewItemFragment) fragment;
-        p.hideEmojiKeyboard();
-
         super.onPause();
     }
 

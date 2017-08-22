@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.gnuzero.pub.pituwa.adapter.NavDrawerAdapter;
 import org.gnuzero.pub.pituwa.app.App;
@@ -34,6 +35,7 @@ public class FragmentDrawer extends Fragment {
     private View containerView;
     private static String[] titles = null;
     private FragmentDrawerListener drawerListener;
+    private TextView mTicker;
 
     String navTitles[];
     public TypedArray navIcons;
@@ -75,10 +77,10 @@ public class FragmentDrawer extends Fragment {
                              Bundle savedInstanceState) {
         // Inflating view layout
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-
+        mTicker = (TextView) layout.findViewById(R.id.tickerTextView);
         mNavHeaderContainer = (RelativeLayout) layout.findViewById(R.id.nav_header_container);
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
-
+        App.getInstance().setUpHeadlines(mTicker);
         adapter = new NavDrawerAdapter(navTitles, navIcons, getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -114,7 +116,7 @@ public class FragmentDrawer extends Fragment {
             public void onDrawerOpened(View drawerView) {
 
                 super.onDrawerOpened(drawerView);
-
+                App.getInstance().setUpHeadlines(mTicker);
                 adapter.notifyDataSetChanged();
 
                 final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -154,7 +156,6 @@ public class FragmentDrawer extends Fragment {
     }
 
     public void openDrawer() {
-
         mDrawerLayout.openDrawer(containerView);
     }
 

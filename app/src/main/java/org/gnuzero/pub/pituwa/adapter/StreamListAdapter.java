@@ -14,8 +14,6 @@ import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
 
 import java.util.List;
-
-import github.ankushsachdeva.emojicon.EmojiconTextView;
 import org.gnuzero.pub.pituwa.CategoryActivity;
 import org.gnuzero.pub.pituwa.R;
 import org.gnuzero.pub.pituwa.app.App;
@@ -58,7 +56,7 @@ public class StreamListAdapter extends BaseAdapter implements Constants {
 	static class ViewHolder {
 
         public ImageView itemImg;
-        public EmojiconTextView itemTitle;
+        public TextView itemTitle;
         public TextView itemDate;
         public TextView itemCategory;
         public LinearLayout itemImgSeparatorLine;
@@ -82,7 +80,7 @@ public class StreamListAdapter extends BaseAdapter implements Constants {
 
             viewHolder.itemImg = (ImageView) convertView.findViewById(R.id.itemImg);
             viewHolder.itemCategory = (TextView) convertView.findViewById(R.id.itemCategory);
-            viewHolder.itemTitle = (EmojiconTextView) convertView.findViewById(R.id.itemTitle);
+            viewHolder.itemTitle = (TextView) convertView.findViewById(R.id.itemTitle);
             viewHolder.itemDate = (TextView) convertView.findViewById(R.id.itemDate);
             viewHolder.itemImgSeparatorLine = (LinearLayout) convertView.findViewById(R.id.itemImgSeparatorLine);
 

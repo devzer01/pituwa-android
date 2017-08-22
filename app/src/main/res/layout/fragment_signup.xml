@@ -11,6 +11,7 @@
     tools:context="org.gnuzero.pub.pituwa.SignupFragment">
 
     <TextView
+        android:id="@+id/header1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="පිටුව ජාලයට එක්වන්න"
@@ -39,6 +40,7 @@
             android:weightSum="1">
 
             <TextView
+                android:id="@+id/header2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="පහතින් facebook ජාලයට සමග හෝ"
@@ -71,6 +73,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/header3"
                 android:text="පහතින් සෘජුව username සහ password සෙටි කරගන්න"
                 android:gravity="left"
                 android:padding="5dp"
@@ -127,6 +130,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/header5"
                 android:text="3. register බොත්තම ඔබන්න"
                 android:gravity="left"
                 android:padding="5dp"

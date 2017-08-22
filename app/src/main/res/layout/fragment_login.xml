@@ -10,9 +10,10 @@
     tools:context="org.gnuzero.pub.pituwa.LoginFragment" >
 
     <TextView
+        android:id="@+id/heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="භාවිතාවේනික අංගයක්. සත්‍යාපනය වන්න"
+        android:text="ගිනුමක් ස්ථාපණය කොට ඇත්නම් මෙම පිටුවෙන් පිවිසෙන්න"
         android:gravity="center"
         android:alpha="0.90"
         android:background="#fff"
@@ -43,7 +44,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="ජාලගත (ලියාපදින්චි)"
+                android:text="ලියාපදින්චි වන්න"
                 android:id="@+id/signupButton"
                 android:layout_marginTop="5dp"
                 android:textColor="#ffffff"
@@ -68,7 +69,7 @@
                 android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                fb:login_text="මුහුනු පොත් සත්යාපනය"
+                fb:login_text="මුහුනු පොත් ගිනුමෙන් පිවිසීම"
                 fb:logout_text="ඉවත්වීම"
                 fb:paddingStart="@dimen/com_facebook_likeboxcountview_border_radius"
                 android:background="#356cb5"
@@ -154,16 +155,5 @@
         android:layout_marginTop="5dp"
         android:layout_height="1dip"
         android:background="#356cb5" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-    android:text="භාවිතාවේනිකයනු භාවිතානරන්නාට ආවේනික ආකාරයෙන්, භාවිනකරන පුද්ගලයාගේ කැමැති අකමැතිකම් ආස්‍රයෙන් (unique to the user, as such includes content based on personal preference)"
-    android:gravity="center"
-    android:background="#fff"
-    android:textSize="12dp"
-        android:alpha="0.90"
-    android:textStyle="bold" />
 
 </LinearLayout>

@@ -12,10 +12,12 @@ public interface Constants {
 
     public static final String CLIENT_ID = "39549";  //Client ID | For identify the application | Example: 12567
 
-    public static final String API_DOMAIN = "http://stage.backend.pituwa.co/";  //url address to which the application sends requests
+    public static final String API_DOMAIN = "http://backend.pituwa.co/";  //url address to which the application sends requests
 
     public static final String API_FILE_EXTENSION = ".inc.php";
     public static final String API_VERSION = "v1";
+
+    public static final String METHOD_HEADLINES = API_DOMAIN + "headlines.json";
 
     public static final String METHOD_ACCOUNT_LOGIN = API_DOMAIN + "api/" + API_VERSION + "/method/account.signIn" + API_FILE_EXTENSION;
     public static final String METHOD_ACCOUNT_SIGNUP = API_DOMAIN + "api/" + API_VERSION + "/method/account.signUp" + API_FILE_EXTENSION;

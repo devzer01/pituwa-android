@@ -57,6 +57,7 @@ public class NavDrawerAdapter extends RecyclerView.Adapter<NavDrawerAdapter.View
 
                 navCounter = (TextView) itemView.findViewById(R.id.tv_NavCounter);
                 navTitle = (TextView) itemView.findViewById(R.id.tv_NavTitle);
+                navTitle.setTypeface(App.getInstance().getFont());
                 navIcon = (ImageView) itemView.findViewById(R.id.iv_NavIcon);
 
             } else {
@@ -65,7 +66,9 @@ public class NavDrawerAdapter extends RecyclerView.Adapter<NavDrawerAdapter.View
                 userCover = (ImageView) itemView.findViewById(R.id.userCover);
 
                 userFullname = (TextView) itemView.findViewById(R.id.userFullname);
+                userFullname.setTypeface(App.getInstance().getFont());
                 userUsername = (TextView) itemView.findViewById(R.id.userUsername);
+                userUsername.setTypeface(App.getInstance().getFont());
             }
         }
     }

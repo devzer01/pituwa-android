@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "784770969877",
-    "project_id": "firebase-pituwa"
+    "firebase_url": "https://fir-pituwa.firebaseio.com",
+    "project_id": "firebase-pituwa",
+    "storage_bucket": "firebase-pituwa.appspot.com"
   },
   "client": [
     {
@@ -12,6 +14,10 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "784770969877-3gs7hsk86dnp31qr81pvlvscp9vd9bot.apps.googleusercontent.com",
+          "client_type": 3
+        },
         {
           "client_id": "784770969877-566gb09kq2tdgdrdfrfsn51amk507uo9.apps.googleusercontent.com",
           "client_type": 3
@@ -31,7 +37,7 @@
           "other_platform_oauth_client": []
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

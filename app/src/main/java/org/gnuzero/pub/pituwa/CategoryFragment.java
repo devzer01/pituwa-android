@@ -107,6 +107,7 @@ public class CategoryFragment extends Fragment implements Constants, SwipeRefres
         mItemsContainer.setOnRefreshListener(this);
 
         mMessage = (TextView) rootView.findViewById(R.id.message);
+        mMessage.setTypeface(App.getInstance().getFont());
 
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
 
@@ -134,7 +135,7 @@ public class CategoryFragment extends Fragment implements Constants, SwipeRefres
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount && (viewMore) && !(mItemsContainer.isRefreshing()))
                         {
                             loadingMore = true;
-                            Log.e("...", "Last Item Wow !");
+                            //Log.e("...", "Last Item Wow !");
 
                             getItems();
                         }

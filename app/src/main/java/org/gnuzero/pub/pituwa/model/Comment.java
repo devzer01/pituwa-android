@@ -39,11 +39,11 @@ public class Comment extends Application implements Constants, Parcelable {
 
         } catch (Throwable t) {
 
-            Log.e("Comment", "Could not parse malformed JSON: \"" + jsonData.toString() + "\"");
+            //Log.e("Comment", "Could not parse malformed JSON: \"" + jsonData.toString() + "\"");
 
         } finally {
 
-            Log.d("Comment", jsonData.toString());
+            //Log.d("Comment", jsonData.toString());
         }
     }
 

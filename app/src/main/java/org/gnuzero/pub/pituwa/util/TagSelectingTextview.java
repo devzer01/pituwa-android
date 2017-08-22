@@ -64,7 +64,7 @@ public class TagSelectingTextview {
 
                     // Click on each tag will get here
 
-                    Log.d("TAg--HAsh", String.format("Clicked", mLastTextSpan));
+                    //Log.d("TAg--HAsh", String.format("Clicked", mLastTextSpan));
                     mTagClick.clickedTag(mLastTextSpan);
                 }
 

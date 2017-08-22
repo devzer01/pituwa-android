@@ -154,7 +154,7 @@ public class SearchFragment extends Fragment implements Constants, SwipeRefreshL
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount && (viewMore) && !(mItemsContainer.isRefreshing()))
                         {
                             loadingMore = true;
-                            Log.e("...", "Last Item Wow !");
+                            //Log.e("...", "Last Item Wow !");
 
                             search();
                         }

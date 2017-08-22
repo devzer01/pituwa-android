@@ -120,13 +120,13 @@ public class ServicesFragment extends Fragment implements Constants {
 
                                     } catch (Throwable t) {
 
-                                        Log.e("Profile", "Could not parse malformed JSON: \"" + object.toString() + "\"");
+                                        //Log.e("Profile", "Could not parse malformed JSON: \"" + object.toString() + "\"");
 
                                     } finally {
 
                                         if (AccessToken.getCurrentAccessToken() != null) LoginManager.getInstance().logOut();
 
-                                        Log.d("Profile", object.toString());
+                                        //Log.d("Profile", object.toString());
 
                                         if (App.getInstance().isConnected()) {
 

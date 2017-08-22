@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import org.gnuzero.pub.pituwa.R;
+import org.gnuzero.pub.pituwa.app.App;
 import org.gnuzero.pub.pituwa.model.Category;
 
 public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.MyViewHolder> {
@@ -30,6 +31,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
             super(view);
 
             title = (TextView) view.findViewById(R.id.title);
+            title.setTypeface(App.getInstance().getFont());
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
         }
     }
@@ -45,8 +47,6 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_list_row, parent, false);
-
-
         return new MyViewHolder(itemView);
     }
 
