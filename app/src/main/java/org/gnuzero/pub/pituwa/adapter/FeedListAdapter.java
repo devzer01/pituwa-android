@@ -78,7 +78,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
 
         holder.mTime.setText(c.getDate());
 
-        imageLoader.get(c.getImgUrl(), ImageLoader.getImageListener(holder.mImage, R.drawable.img_loading, R.drawable.img_loading));
+        if (c.getImgUrl() != null) imageLoader.get(c.getImgUrl(), ImageLoader.getImageListener(holder.mImage, R.drawable.img_loading, R.drawable.img_loading));
     }
 
     // Return the size of your dataset (invoked by the layout manager)
