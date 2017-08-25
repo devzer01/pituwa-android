@@ -1,13 +1,17 @@
 package org.gnuzero.pub.pituwa;
 
+import android.*;
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.CountDownTimer;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -63,7 +67,7 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.google.android.youtube.player.YouTubePlayerView;*/
 
 
-public class ViewItemFragment extends Fragment implements Constants, SwipeRefreshLayout.OnRefreshListener, CommentInterface {
+public class ViewItemFragment extends Fragment implements Constants, SwipeRefreshLayout.OnRefreshListener, CommentInterface, ActivityCompat.OnRequestPermissionsResultCallback {
 
     private ProgressDialog pDialog;
 
@@ -92,7 +96,7 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
 
     private CommentListAdapter itemAdapter;
 
-    Item item;
+    public Item item = null;
 
     long itemId = 0, replyToUserId = 0;
     int arrayLength = 0;
@@ -345,12 +349,41 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
+    {
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Api api = new Api(getActivity());
+                    api.postShare(item);
+                }
+        }
+    }
+
+    public void permCheck()
+    {
+        if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(this.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this.getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                //handle later
+            } else {
+                ActivityCompat.requestPermissions(this.getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            }
+        } else {
+            Api api = new Api(getActivity());
+            api.postShare(item);
+        }
+    }
+
     public void updateItem() {
 
         if (imageLoader == null) {
 
             imageLoader = App.getInstance().getImageLoader();
         }
+
+        if (item == null) return;
+
 
         getActivity().setTitle(item.getTitle());
 
@@ -407,7 +440,7 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
 
                                         } finally {
 
-                                            updateItem();
+                                            if (item != null) updateItem();
                                         }
                                     }
                                 }, new Response.ErrorListener() {
@@ -445,9 +478,7 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
         mItemShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Api api = new Api(getActivity());
-                api.postShare(item);
+                permCheck();
             }
         });
 

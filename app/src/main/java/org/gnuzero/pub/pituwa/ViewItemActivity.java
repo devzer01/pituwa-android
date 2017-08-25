@@ -1,7 +1,9 @@
 package org.gnuzero.pub.pituwa;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
@@ -18,9 +20,12 @@ import org.gnuzero.pub.pituwa.dialogs.CommentActionDialog;
 import org.gnuzero.pub.pituwa.dialogs.CommentDeleteDialog;
 
 import org.gnuzero.pub.pituwa.dialogs.MyCommentActionDialog;
+import org.gnuzero.pub.pituwa.util.Api;
 
 
-public class ViewItemActivity extends ActivityBase implements CommentDeleteDialog.AlertPositiveListener, CommentActionDialog.AlertPositiveListener, MyCommentActionDialog.AlertPositiveListener {
+public class ViewItemActivity extends ActivityBase implements CommentDeleteDialog.AlertPositiveListener,
+        CommentActionDialog.AlertPositiveListener, MyCommentActionDialog.AlertPositiveListener,
+        ActivityCompat.OnRequestPermissionsResultCallback {
 
     Toolbar mToolbar;
 
@@ -61,6 +66,19 @@ public class ViewItemActivity extends ActivityBase implements CommentDeleteDialo
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container_body, fragment).commit();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
+    {
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Api api = new Api(this);
+                    ViewItemFragment v = (ViewItemFragment) fragment;
+                    api.postShare(v.item);
+                }
+        }
     }
 
     @Override
