@@ -15,8 +15,8 @@ android {
         applicationId "org.gnuzero.pub.pituwa"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 319
-        versionName '3.1.9'
+        versionCode 412
+        versionName '4.1.2'
         signingConfig signingConfigs.devsign
     }
     buildTypes {

@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
+import org.gnuzero.pub.pituwa.app.App;
 import org.gnuzero.pub.pituwa.common.ActivityBase;
 
 public class CategoryActivity extends ActivityBase {
@@ -28,6 +30,7 @@ public class CategoryActivity extends ActivityBase {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         if (savedInstanceState != null) {
 
@@ -38,18 +41,19 @@ public class CategoryActivity extends ActivityBase {
         } else {
 
             Intent i = getIntent();
-
             String title = i.getStringExtra("title");
+
+            TextView mToolbarTitle;
+            mToolbarTitle = (TextView) findViewById(R.id.toolbarTitle);
+            mToolbarTitle.setTypeface(App.getInstance().getFont());
 
             fragment = new CategoryFragment();
 
             if (title != null) {
-
-                getSupportActionBar().setTitle(title);
+                mToolbarTitle.setText(title);
 
             } else {
-
-                getSupportActionBar().setTitle(R.string.title_activity_category);
+                mToolbarTitle.setText(R.string.title_activity_category);
             }
 
             restore = false;

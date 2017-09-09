@@ -19,6 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,6 +60,7 @@ import org.gnuzero.pub.pituwa.model.Item;
 import org.gnuzero.pub.pituwa.util.Api;
 import org.gnuzero.pub.pituwa.util.CommentInterface;
 import org.gnuzero.pub.pituwa.util.CustomRequest;
+import org.w3c.dom.Text;
 
 /*import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -88,6 +90,7 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
     TextView mItemCategory, mItemDate, mItemTitle, mItemLikesCount, mItemCommentsCount, mPostMessage;
     ImageView mItemImg;
     WebView mWebView;
+    TextView mBody;
     VideoView mVdView;
 
     ImageLoader imageLoader = App.getInstance().getImageLoader();
@@ -207,6 +210,7 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
 
         mWebView = (WebView) mListViewHeader.findViewById(R.id.webView);
         mVdView = (VideoView) mListViewHeader.findViewById(R.id.video_view);
+        mBody = (TextView) mListViewHeader.findViewById(R.id.webBody);
 
         mItemLike = (ImageView) mListViewHeader.findViewById(R.id.itemLike);
         mItemShare = (ImageView) mListViewHeader.findViewById(R.id.itemShare);
@@ -384,10 +388,15 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
 
         if (item == null) return;
 
-
-        getActivity().setTitle(item.getTitle());
+        TextView mToolbarTitle;
+        mToolbarTitle = (TextView) getActivity().findViewById(R.id.toolbarTitle);
+        mToolbarTitle.setTypeface(App.getInstance().getFont());
+        int length = 10;
+        if (item.getTitle().length() < length) length = item.getTitle().length();
+        mToolbarTitle.setText(item.getTitle().substring(0, length) + "....");
 
         mItemCategory.setText(item.getCategoryTitle());
+        mItemCategory.setTypeface(App.getInstance().getFont());
         mItemDate.setText(item.getDate());
 
         mItemComment.setVisibility(View.GONE);
@@ -528,23 +537,35 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
                 mVdFrame.setVisibility(View.GONE);
             }
 
-            mWebView.setVisibility(View.VISIBLE);
+            mWebView.setVisibility(View.GONE);
             mWebView.getSettings().setJavaScriptEnabled(true);
             mWebView.getSettings().setLoadWithOverviewMode(true);
             mWebView.getSettings().setUseWideViewPort(true);
+            mWebView.getSettings().setAllowFileAccess(true);
+            mWebView.getSettings().setCursiveFontFamily("warna");
+
 
             mWebView.getSettings().setMinimumFontSize(14);
 
-            String htmlContent = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"
-                               + "<head>"
+            String htmlContent = "<!DOCTYPE html>"
+                               + "<html><head>"
+                               + "<meta charset=\"utf-8\">"
                                + "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />"
                                + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>"
-                               + "<style type=\"text/css\">body{color: #525252;} img {max-width: 100%; height: auto}</style>"
-                               + "</head>"
+                               + "<style type=\"text/css\">"
+                               + "    @font-face { "
+                               + "        font-family: 'warna';"
+                               + "        src: url('file:///android_asset/fonts/warna.ttf')"
+                               + "    }"
+                               + "    body { color: #525252; font-family: 'warna'} img { max-width: 100%; height: auto }"
+                               + "</style>"
+                               + "</head><body>"
                                + item.getContent()
-                               + "";
+                               + "</body></html>";
 
-            mWebView.loadData(htmlContent, "text/html; charset=utf-8", "UTF-8");
+            mWebView.loadDataWithBaseURL(null, htmlContent, "text/html", "UTF-8", null);
+            mBody.setTypeface(App.getInstance().getFont());
+            mBody.setText(item.getContent());
 
         }
 
@@ -566,7 +587,7 @@ public class ViewItemFragment extends Fragment implements Constants, SwipeRefres
 
             mPostTopSeparatorLine.setVisibility(View.VISIBLE);
             mPostMessage.setVisibility(View.VISIBLE);
-
+            mPostMessage.setTypeface(App.getInstance().getFont());
             mPostMessage.setText(getString(R.string.msg_comments_disabled));
         }
 

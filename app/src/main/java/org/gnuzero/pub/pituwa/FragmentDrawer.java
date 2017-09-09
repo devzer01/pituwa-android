@@ -48,19 +48,6 @@ public class FragmentDrawer extends Fragment {
         this.drawerListener = listener;
     }
 
-//    public static List<NavDrawerItem> getData() {
-//        List<NavDrawerItem> data = new ArrayList<>();
-//
-//
-//        // preparing navigation drawer items
-//        for (int i = 0; i < titles.length; i++) {
-//
-//            NavDrawerItem navItem = new NavDrawerItem();
-//            navItem.setTitle(titles[i]);
-//            data.add(navItem);
-//        }
-//        return data;
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,6 +65,7 @@ public class FragmentDrawer extends Fragment {
         // Inflating view layout
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         mTicker = (TextView) layout.findViewById(R.id.tickerTextView);
+        mTicker.setTypeface(App.getInstance().getFont());
         mNavHeaderContainer = (RelativeLayout) layout.findViewById(R.id.nav_header_container);
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
         App.getInstance().setUpHeadlines(mTicker);

@@ -62,6 +62,7 @@ public class AppActivity extends ActivityBase {
 
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         App.getInstance().setGcmToken(refreshedToken);
+        App.getInstance().getConfig();
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,10 +103,9 @@ public class AppActivity extends ActivityBase {
 
             if (!loading) {
 
-                showLoadingScreen();
+                //showLoadingScreen();
 
                 loading = true;
-
                 CustomRequest jsonReq = new CustomRequest(Request.Method.POST, METHOD_ACCOUNT_AUTHORIZE, null,
                         new Response.Listener<JSONObject>() {
                             @Override

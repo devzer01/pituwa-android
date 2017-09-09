@@ -15,12 +15,12 @@
         android:id="@+id/postContent">
 
         <ImageView
+            android:id="@+id/itemImg"
             android:layout_width="match_parent"
             android:layout_height="256dp"
-            android:id="@+id/itemImg"
+            android:scaleType="fitXY"
             android:src="@drawable/img_loading"
-            android:visibility="gone"
-            android:scaleType="centerCrop" />
+            android:visibility="gone" />
 
         <RelativeLayout
             android:id="@+id/video_frame"
@@ -115,6 +115,12 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/webBody"
+            android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
 

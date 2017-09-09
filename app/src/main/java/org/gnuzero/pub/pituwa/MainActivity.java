@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -35,6 +36,7 @@ import java.util.Map;
 public class MainActivity extends ActivityBase implements FragmentDrawer.FragmentDrawerListener, ImageChooseDialog.AlertPositiveListener, ProfileReportDialog.AlertPositiveListener, PopularSettingsDialog.AlertPositiveListener {
 
     Toolbar mToolbar;
+    TextView mToolbarTitle;
 
     private FragmentDrawer drawerFragment;
 
@@ -77,11 +79,14 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
         }
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbarTitle = (TextView) findViewById(R.id.toolbarTitle);
+        mToolbarTitle.setTypeface(App.getInstance().getFont());
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle(mTitle);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //getSupportActionBar().setTitle(mTitle);
 
         drawerFragment = (FragmentDrawer) getFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
@@ -92,7 +97,6 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
         if (App.getInstance().getAdmob() == ADMOB_ENABLED) {
 
             mContainerAdmob.setVisibility(View.VISIBLE);
-
             AdView mAdView = (AdView) findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().build();
             mAdView.loadAd(adRequest);
@@ -114,7 +118,7 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
         super.onSaveInstanceState(outState);
 
         outState.putBoolean("restore", true);
-        outState.putString("mTitle", getSupportActionBar().getTitle().toString());
+        //outState.putString("mTitle", getSupportActionBar().getTitle().toString());
         getSupportFragmentManager().putFragment(outState, "currentFragment", fragment);
     }
 
@@ -227,7 +231,8 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
                 page = 1;
 
                 fragment = new StreamFragment();
-                getSupportActionBar().setTitle(R.string.page_1);
+                //getSupportActionBar().setTitle(R.string.page_1);
+                mToolbarTitle.setText(R.string.page_1);
 
                 action = true;
 
@@ -239,7 +244,8 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
                 page = 2;
 
                 fragment = new CategoriesFragment();
-                getSupportActionBar().setTitle(R.string.page_2);
+                //getSupportActionBar().setTitle(R.string.page_2);
+                mToolbarTitle.setText(R.string.page_2);
 
                 action = true;
 
@@ -264,7 +270,9 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
                 page = 3;
 
                 fragment = new PopularFragment();
-                getSupportActionBar().setTitle(R.string.page_4);
+                //getSupportActionBar().setTitle(R.string.page_1);
+                mToolbarTitle.setText(R.string.page_4);
+                //getSupportActionBar().setTitle(R.string.page_4);
 
                 action = true;
 
@@ -278,7 +286,9 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
                     page = 4;
 
                     fragment = new FavoritesFragment();
-                    getSupportActionBar().setTitle(R.string.page_5);
+                    //getSupportActionBar().setTitle(R.string.page_1);
+                    mToolbarTitle.setText(R.string.page_5);
+                    //getSupportActionBar().setTitle(R.string.page_5);
 
                     action = true;
 
@@ -320,7 +330,9 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
                     page = 5;
 
                     fragment = new ProfileFragment();
-                    getSupportActionBar().setTitle(R.string.page_7);
+                    //getSupportActionBar().setTitle(R.string.page_1);
+                    mToolbarTitle.setText(R.string.page_7);
+                    //getSupportActionBar().setTitle(R.string.page_7);
 
                     action = true;
                     /*Intent i = new Intent(MainActivity.this, LoginActivity.class);
@@ -477,7 +489,9 @@ public class MainActivity extends ActivityBase implements FragmentDrawer.Fragmen
     public void setTitle(CharSequence title) {
 
         mTitle = title;
-        getSupportActionBar().setTitle(mTitle);
+        //getSupportActionBar().setTitle(R.string.page_1);
+        mToolbarTitle.setText(mTitle);
+        //getSupportActionBar().setTitle(mTitle);
     }
 
     public void hideAds() {

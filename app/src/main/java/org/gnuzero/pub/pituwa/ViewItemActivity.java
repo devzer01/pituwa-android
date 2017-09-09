@@ -41,6 +41,7 @@ public class ViewItemActivity extends ActivityBase implements CommentDeleteDialo
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         LinearLayout mContainerAdmob = (LinearLayout) findViewById(R.id.container_admob);
 

@@ -76,7 +76,6 @@ public class App extends Application implements Constants {
         sharedPref = this.getSharedPreferences(getString(R.string.settings_file), Context.MODE_PRIVATE);
 
         this.readData();
-        //getLocation();
 	}
 
     public boolean isConnected() {
@@ -145,6 +144,52 @@ public class App extends Application implements Constants {
 
     public String gPackageName() {
         return getApplicationContext().getPackageName();
+    }
+
+    public boolean setConfig(JSONObject config) {
+        try {
+            int admob = config.getInt("admob");
+            this.admob = admob;
+            return true;
+        } catch (JSONException e) {
+            return false;
+        }
+    }
+
+    public void getConfig() {
+        if (App.getInstance().isConnected()) {
+
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("r", String.valueOf(Math.random()));
+
+            CustomRequest jsonReq = new CustomRequest(Request.Method.POST, METHOD_AD_CONFIG, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                            if (!App.getInstance().setConfig(response)) {
+
+                                Toast.makeText(getApplicationContext(), getString(R.string.msg_network_error), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    Toast.makeText(getApplicationContext(), getString(R.string.msg_network_error), Toast.LENGTH_SHORT).show();
+                }
+            }) {
+
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("clientId", CLIENT_ID);
+                    return params;
+                }
+            };
+            jsonReq.setShouldCache(false);
+            App.getInstance().addToRequestQueue(jsonReq);
+        }
     }
 
     public void reload() {
